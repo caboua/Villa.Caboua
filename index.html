@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison 3 chambres – Location saisonnière</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f7f7f7;
+    }
+    header {
+      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BUDDHA.jpg') center top/contain no-repeat;
+      color: white;
+      padding: 120px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    nav {
+      background: #2c3e50;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .chambres {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .tarifs table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .tarifs th, .tarifs td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #2c3e50;
+      color: white;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-block;
+      background: #e67e22;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #d35400;
+    }
+      .rainbow {
+      font-size: 3.2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowMove 5s linear infinite;
+    }
+    @keyframes rainbowMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 class="rainbow">VILLA CABOUA</h1>
+  <p>Location saisonnière confortable et tout équipée</p>
+  <a href="#contact" class="btn">Réserver</a>
+</header>
+
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="#description">Description</a>
+  <a href="#chambres">Chambres</a>
+  <a href="#photos">Photos</a>
+  <a href="#tarifs">Tarifs</a>
+  <a href="agenda.html">Agenda</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="description">
+  <h2>🌴 Villa CABOUA – Calme et sérénité en Guadeloupe 🌴</h2>
+  <p>
+    Villa récente située entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe.
+    Les photos sont disponibles sur demande. Disponibilités à partir du <strong>01 mars</strong>.
+  </p>
+  <p>
+    Nichée dans les hauteurs de Bouillante, la Villa CABOUA est l’endroit idéal pour un séjour placé sous le signe de la détente et du calme,
+    au cœur de la Côte Sous-le-Vent.
+  </p>
+
+  <h3>🏡 La Villa</h3>
+  <ul>
+    <li>Terrasse aménagée avec coin repas et salon détente</li>
+    <li>Cuisine ouverte sur le séjour, entièrement équipée : plaque à induction (4 feux), four, micro-ondes, cafetière, bouilloire, grille-pain, grand réfrigérateur avec congélateur, lave-linge</li>
+  </ul>
+
+  <h3>🛏️ Les Chambres</h3>
+  <ul>
+    <li>Suite parentale climatisée avec lit 160 × 200 cm, salle d’eau attenante (douche à l’italienne et WC) et accès direct à la terrasse</li>
+    <li>Deux chambres climatisées avec lit 160 × 200 cm et vue sur le jardin</li>
+    <li>Salle d’eau indépendante avec grande douche à l’italienne et WC</li>
+    <li>WC indépendant</li>
+    <li>Canapé convertible dans le séjour, idéal pour familles ou groupes d’amis</li>
+  </ul>
+
+  <h3>📍 Situation & alentours</h3>
+  <ul>
+    <li>À 2 minutes du bourg de Bouillante et des commodités</li>
+    <li>À proximité des célèbres Bains Chauds de Bouillante et de Thomas</li>
+    <li>À 5 minutes de la plage de Malendure et de la Réserve Cousteau</li>
+    <li>Accès rapide à la Route de la Traversée (Route des Mamelles)</li>
+  </ul>
+
+  <h3>📄 Conditions de réservation</h3>
+  <ul>
+    <li>Acompte de 30 % par virement à la réservation</li>
+    <li>Solde par virement au plus tard 1 semaine avant l’arrivée</li>
+    <li>Dépôt de garantie de 1 000 € (non encaissé)</li>
+    <li>Pas de fêtes ni événements – uniquement les personnes mentionnées au contrat</li>
+  </ul>
+
+  <h3>❌ Non compris dans le tarif</h3>
+  <ul>
+    <li>Taxe de séjour : 1,50 € / nuit / adulte</li>
+    <li>Forfait préparation & linge : 120 €</li>
+  </ul>
+
+  <h3>⏳ Conditions de séjour</h3>
+  <ul>
+    <li>Séjour minimum : 4 nuits</li>
+    <li>🎉 Remise de 10 % pour tout séjour à partir de 7 nuits</li>
+  </ul>
+</section>
+
+<section id="chambres">
+  <h2>Les chambres</h2>
+  <div class="chambres">
+    <div class="card">
+      <h3>Chambre 1</h3>
+      <p>Lit double, rangements, vue jardin.</p>
+    </div>
+    <div class="card">
+      <h3>Chambre 2</h3>
+      <p>Lit double, ambiance calme et lumineuse.</p>
+    </div>
+    <div class="card">
+      <h3>Chambre 3</h3>
+      <p>Deux lits simples, idéale pour enfants.</p>
+    </div>
+  </div>
+</section>
+
+<section id="photos">
+  <h2>Galerie photos</h2>
+  <div class="gallery">
+    <img src="https://via.placeholder.com/400x300" alt="Salon" />
+    <img src="https://via.placeholder.com/400x300" alt="Cuisine" />
+    <img src="https://via.placeholder.com/400x300" alt="Chambre" />
+    <img src="https://via.placeholder.com/400x300" alt="Jardin" />
+  </div>
+</section>
+
+<section id="tarifs" class="tarifs">
+  <h2>Tarifs</h2>
+  <table>
+    <tr>
+      <th>Période</th>
+      <th>Prix / nuit</th>
+    </tr>
+    <tr>
+      <td>Basse saison</td>
+      <td>90 €</td>
+    </tr>
+    <tr>
+      <td>Moyenne saison</td>
+      <td>120 €</td>
+    </tr>
+    <tr>
+      <td>Haute saison</td>
+      <td>160 €</td>
+    </tr>
+  </table>
+</section>
+
+<section id="contact">
+  <h2>Contact & réservation</h2>
+  <p>
+    Pour toute demande de disponibilité ou de réservation, merci de nous contacter :
+  </p>
+  <p>
+    📧 Email : contact@votremaison.com<br />
+    📞 Téléphone : 06 00 00 00 00
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 – Location saisonnière maison 3 chambres</p>
+</footer>
+
+</body>
+</html>
