@@ -30,9 +30,6 @@
       font-size: 3rem;
       margin-bottom: 10px;
     }
-    header p {
-      font-size: 1.2rem;
-    }
     nav {
       background: #2c3e50;
       padding: 10px;
@@ -419,17 +416,20 @@
     window.open(`https://wa.me/590690520616?text=${message}`, '_blank');
   }
 
+  // Animation scroll avec effet cascade
+  const cards = document.querySelectorAll('.card');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
+        const index = Array.from(cards).indexOf(entry.target);
+        entry.target.style.animationDelay = `${index * 0.15}s`;
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.card').forEach(card => {
-    observer.observe(card);
-  });
+  cards.forEach(card => observer.observe(card));
 </script>
 
 </body>
