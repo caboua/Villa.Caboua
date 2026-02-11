@@ -6,35 +6,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       margin: 0;
       background: #f7f7f7;
+      color: #333;
     }
+
+    /* Header */
     header {
-      background: #2c3e50;
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
       color: white;
-      padding: 30px;
+      padding: 40px 20px;
       text-align: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
     }
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 5px 0;
+    }
+    header a {
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    /* Section principale */
     section {
       max-width: 1000px;
       margin: 30px auto;
       background: white;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
+
+    /* Éléments animés verticaux */
+    .fade-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     iframe {
       width: 100%;
       height: 600px;
       border: none;
+      border-radius: 12px;
+      margin-top: 15px;
     }
-    a {
-      color: white;
+
+    /* Boutons avec glissement horizontal */
+    .btn {
+      display: inline-block;
+      margin: 15px 10px 30px 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
       text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+    .btn-whatsapp { background: #25D366; transform: translateX(-50px);}
+    .btn-whatsapp.visible { opacity:1; transform: translateX(0);}
+    .btn-email { background: #e67e22; transform: translateX(50px);}
+    .btn-email.visible { opacity:1; transform: translateX(0);}
+    .btn-whatsapp:hover { background: #1ebe5d; transform: translateX(0) translateY(-2px);}
+    .btn-email:hover { background: #d35400; transform: translateX(0) translateY(-2px);}
+
+    @media(max-width:600px){
+      iframe { height: 500px; }
+      .btn { font-size: 16px; padding: 12px 25px; }
+      header h1 { font-size: 2rem; }
+      section { padding: 20px; margin: 20px 10px; }
     }
   </style>
 </head>
-
 <body>
 
 <header>
@@ -43,27 +99,57 @@
   <p><a href="index.html">← Retour au site</a></p>
 </header>
 
-<section>
-  <p>
-    Consultez ci-dessous les disponibilités de la Villa CABOUA.  
-    Les dates bloquées correspondent aux périodes déjà réservées.
-  </p>
+<section id="agenda">
+  <!-- Texte d'intro -->
+  <p class="fade-item">Consultez ci-dessous les disponibilités de la Villa CABOUA.</p>
+  <p class="fade-item">Les dates bloquées correspondent aux périodes déjà réservées.</p>
 
-  <!-- GOOGLE AGENDA À INTÉGRER ICI -->
-  <iframe 
+  <!-- Google Agenda -->
+  <iframe class="fade-item"
     src="https://calendar.google.com/calendar/embed?src=412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd%40group.calendar.google.com&ctz=America%2FPuerto_Rico">
   </iframe>
+
+  <!-- Boutons de réservation -->
+  <div style="text-align:center; margin-top:30px;">
+    <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA"
+       target="_blank" class="btn btn-whatsapp">
+      💬 Demande de réservation via WhatsApp
+    </a>
+    <a href="mailto:villa.caboua@gmail.com?subject=Demande de réservation – Villa CABOUA"
+       class="btn btn-email">
+      📧 Demande de réservation par Email
+    </a>
+  </div>
 </section>
+
+<script>
+  // Observer pour effet timeline avec cascade et glissement
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        // Éléments verticaux (texte et calendrier)
+        document.querySelectorAll('.fade-item').forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, i * 200);
+        });
+
+        // Boutons horizontaux avec cascade
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach((btn, i) => {
+          setTimeout(() => {
+            btn.classList.add('visible');
+          }, 500 + i * 250); // commence après le fade des textes et calendrier
+        });
+
+        observer.disconnect(); // stop après première activation
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(document.getElementById('agenda'));
+</script>
 
 </body>
 </html>
-<div style="text-align:center; margin-top:30px;">
-  <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA"
-     target="_blank"
-     style="background:#25D366;color:white;padding:15px 30px;
-            text-decoration:none;font-size:18px;border-radius:6px;">
-    💬 Demande de réservation
-  </a>
-</div>
-<a href="mailto:villa.caboua@gmail.com?subject=Demande de réservation – Villa CABOUA">
 
