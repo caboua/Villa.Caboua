@@ -1,272 +1,435 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Villa CABOUA – Resort 5★</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison 3 chambres – Location saisonnière</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f7f7f7;
+    }
+    header {
+      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+                  url('BUDDHA.jpg') center top/cover no-repeat;
+      color: white;
+      padding: 120px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    nav {
+      background: #2c3e50;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .chambres {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 30px 22px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      text-align: center;
+      font-weight: 500;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .card i {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+      color: #27ae60;
+    }
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .card.visible {
+      animation: fadeUp 0.9s ease forwards;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
 
-/* RESET */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f7;
-  color: #333;
-}
+    #equipements {
+      background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.94)),
+                  url('https://images.unsplash.com/photo-1526779259212-939e64788e3c') center/cover no-repeat;
+      border-radius: 18px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+    #equipements h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .stars {
+      text-align: center;
+      color: #f1c40f;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+    }
+    .badge-luxe {
+      display: inline-block;
+      background: linear-gradient(135deg,#27ae60,#145a32);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin: 10px auto 25px;
+      text-align: center;
+    }
+    #equipements h2::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg,#27ae60,#2ecc71);
+      margin: 12px auto 0;
+      border-radius: 3px;
+    }
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+    .equip-main {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: white;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+    @media (max-width: 600px) {
+      header { padding: 80px 15px; }
+      header h1 { font-size: 2.2rem; }
+      section { padding: 30px 15px; }
+      .equip-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .tarifs table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .tarifs th, .tarifs td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #2c3e50;
+      color: white;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-block;
+      background: #e67e22;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #d35400;
+    }
+    .rainbow {
+      font-size: 3.2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 300% 100%;
+      animation: rainbowMove 5s linear infinite;
+    }
+    @keyframes rainbowMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-/* HEADER PARALLAX */
-header {
-  height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url('BUDDHA.jpg') center/cover no-repeat fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
-}
-
-.rainbow {
-  font-size: 3.5rem;
-  font-weight: bold;
-  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-  background-size: 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbowMove 8s linear infinite;
-}
-
-@keyframes rainbowMove {
-  0% { background-position: 0%; }
-  100% { background-position: 400%; }
-}
-
-.stars {
-  color: #f1c40f;
-  font-size: 1.3rem;
-  letter-spacing: 4px;
-  animation: sparkle 2s infinite alternate;
-}
-
-@keyframes sparkle {
-  from { opacity: 0.7; }
-  to { opacity: 1; transform: scale(1.05); }
-}
-
-.btn {
-  margin-top: 30px;
-  padding: 15px 35px;
-  border-radius: 40px;
-  background: linear-gradient(135deg,#27ae60,#2ecc71);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.btn:hover {
-  transform: translateY(-4px);
-}
-
-/* NAV */
-nav {
-  background: #1f2d3a;
-  padding: 15px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-nav a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-/* SECTIONS */
-section {
-  padding: 80px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* CARTES */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-}
-
-.card {
-  background: white;
-  padding: 35px 25px;
-  border-radius: 25px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  transition: 0.4s;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-}
-
-.card i {
-  font-size: 30px;
-  margin-bottom: 15px;
-  color: #27ae60;
-}
-
-/* EQUIPEMENTS */
-#equipements {
-  background:
-    linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
-    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
-  border-radius: 30px;
-}
-
-/* AGENDA STYLE BOOKING */
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  margin-top: 40px;
-}
-
-.day {
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-}
-
-.free { background: #2ecc71; }
-.booked { background: #e74c3c; }
-
-/* WHATSAPP */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 65px;
-  height: 65px;
-  background: #25D366;
-  border-radius: 50%;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  animation: pulse 2s infinite;
-}
-
-.whatsapp-float svg {
-  width: 35px;
-  fill: white;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-@media (max-width: 768px) {
-  .whatsapp-float { display: flex; }
-}
-
-footer {
-  background: #1f2d3a;
-  color: white;
-  text-align: center;
-  padding: 30px;
-  margin-top: 60px;
-}
-
-</style>
+    /* WhatsApp flottant */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    .whatsapp-float svg {
+      width: 34px;
+      height: 34px;
+      fill: white;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 768px) {
+      .whatsapp-float { display: flex; }
+    }
+  </style>
 </head>
-
 <body>
 
 <header>
-  <div class="rainbow">VILLA CABOUA</div>
-  <div class="stars">★★★★★</div>
-  <a href="#contact" class="btn">Réserver maintenant</a>
+  <h1 class="rainbow">VILLA CABOUA</h1>
+  <a href="#contact" class="btn">Réserver</a>
 </header>
 
 <nav>
+  <a href="index.html">Accueil</a>
+  <a href="#description">Description</a>
+  <a href="#chambres">Chambres</a>
+  <a href="#photos">Photos</a>
+  <a href="#tarifs">Tarifs</a>
   <a href="#equipements">Équipements</a>
-  <a href="#agenda">Disponibilités</a>
+  <a href="agenda.html">Agenda</a>
   <a href="#contact">Contact</a>
 </nav>
 
+<section id="description">
+  <h2>🌴 Villa CABOUA – Calme et sérénité en Guadeloupe 🌴</h2>
+  <p>
+    Villa récente située entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe.
+    Les photos sont disponibles sur demande. Disponibilités à partir du <strong>01 mars</strong>.
+  </p>
+  <p>
+    Nichée dans les hauteurs de Bouillante, la Villa CABOUA est l’endroit idéal pour un séjour placé sous le signe de la détente et du calme,
+    au cœur de la Côte Sous-le-Vent.
+  </p>
+  <h3>🏡 La Villa</h3>
+  <ul>
+    <li>Terrasse aménagée avec coin repas et salon détente</li>
+    <li>Cuisine ouverte sur le séjour, entièrement équipée : plaque à induction (4 feux), four, micro-ondes, cafetière, bouilloire, grille-pain, grand réfrigérateur avec congélateur, lave-linge</li>
+  </ul>
+  <h3>🛏️ Les Chambres</h3>
+  <ul>
+    <li>Suite parentale climatisée avec lit 160 × 200 cm, salle d’eau attenante et accès direct à la terrasse</li>
+    <li>Deux chambres climatisées avec lit 160 × 200 cm et vue sur le jardin</li>
+    <li>Salle d’eau indépendante avec grande douche à l’italienne et WC</li>
+    <li>WC indépendant</li>
+    <li>Canapé convertible dans le séjour</li>
+  </ul>
+  <h3>📍 Situation & alentours</h3>
+  <ul>
+    <li>À 2 minutes du bourg de Bouillante et des commodités</li>
+    <li>À proximité des célèbres Bains Chauds de Bouillante et de Thomas</li>
+    <li>À 5 minutes de la plage de Malendure et de la Réserve Cousteau</li>
+    <li>Accès rapide à la Route de la Traversée</li>
+  </ul>
+  <h3>📄 Conditions de réservation</h3>
+  <ul>
+    <li>Acompte de 30 % par virement à la réservation</li>
+    <li>Solde par virement au plus tard 1 semaine avant l’arrivée</li>
+    <li>Dépôt de garantie de 1 000 € (non encaissé)</li>
+    <li>Pas de fêtes ni événements – uniquement les personnes mentionnées au contrat</li>
+  </ul>
+  <h3>❌ Non compris dans le tarif</h3>
+  <ul>
+    <li>Taxe de séjour : 1,50 € / nuit / adulte</li>
+    <li>Forfait préparation & linge : 120 €</li>
+  </ul>
+  <h3>⏳ Conditions de séjour</h3>
+  <ul>
+    <li>Séjour minimum : 4 nuits</li>
+    <li>🎉 Remise de 10 % pour tout séjour à partir de 7 nuits</li>
+  </ul>
+</section>
+
+<section id="chambres">
+  <h2>Les chambres</h2>
+  <div class="chambres">
+    <div class="card">
+      <h3>Chambre 1</h3>
+      <p>Lit double, ambiance calme et lumineuse.</p>
+    </div>
+    <div class="card">
+      <h3>Chambre 2</h3>
+      <p>Lit double, rangements, vue jardin.</p>
+    </div>
+    <div class="card">
+      <h3>Chambre 3</h3>
+      <p>Lit double, rangements, vue jardin.</p>
+    </div>
+  </div>
+</section>
+
 <section id="equipements">
-  <h2 style="text-align:center;">Équipements Premium</h2>
-  <div class="grid">
-    <div class="card"><i class="fa-solid fa-wifi"></i>Internet haut débit</div>
-    <div class="card"><i class="fa-solid fa-snowflake"></i>Climatisation</div>
-    <div class="card"><i class="fa-solid fa-square-parking"></i>Parking privé</div>
-    <div class="card"><i class="fa-solid fa-tv"></i>TV écran plat</div>
-    <div class="card"><i class="fa-solid fa-seedling"></i>Jardin clôturé</div>
+  <h2>Équipements & Confort</h2>
+  <div class="stars">★★★★★</div>
+  <div style="text-align:center;">
+    <div class="badge-luxe">VILLA DE STANDING</div>
+  </div>
+  <div class="equip-grid">
+    <div class="card equip-main"><i class="fa-solid fa-wifi"></i>Internet haut débit</div>
+    <div class="card equip-main"><i class="fa-solid fa-snowflake"></i>Climatisation</div>
+    <div class="card equip-main"><i class="fa-solid fa-square-parking"></i>Parking privé</div>
+    <div class="card"><i class="fa-solid fa-pump-soap"></i>Produits d’entretien</div>
+    <div class="card"><i class="fa-solid fa-couch"></i>Canapé</div>
+    <div class="card"><i class="fa-solid fa-broom"></i>Aspirateur</div>
+    <div class="card"><i class="fa-solid fa-shirt"></i>Lave-linge</div>
+    <div class="card"><i class="fa-solid fa-bed"></i>Draps fournis</div>
+    <div class="card"><i class="fa-solid fa-mug-hot"></i>Cafetière</div>
+    <div class="card"><i class="fa-solid fa-utensils"></i>Ustensiles de cuisine</div>
+    <div class="card"><i class="fa-solid fa-temperature-low"></i>Réfrigérateur</div>
+    <div class="card"><i class="fa-solid fa-microchip"></i>Micro-ondes</div>
+    <div class="card"><i class="fa-solid fa-fire-burner"></i>Four</div>
+    <div class="card"><i class="fa-solid fa-kitchen-set"></i>Cuisinière</div>
+    <div class="card"><i class="fa-solid fa-chair"></i>Table</div>
+    <div class="card"><i class="fa-solid fa-bread-slice"></i>Grille-pain</div>
+    <div class="card"><i class="fa-solid fa-tv"></i>Télévision écran plat</div>
+    <div class="card"><i class="fa-solid fa-house"></i>Mobilier</div>
     <div class="card"><i class="fa-solid fa-umbrella-beach"></i>Terrasse</div>
+    <div class="card"><i class="fa-solid fa-kitchen-set"></i>Cuisine équipée</div>
+    <div class="card"><i class="fa-solid fa-seedling"></i>Jardin clôturé</div>
   </div>
 </section>
 
-<section id="agenda">
-  <h2 style="text-align:center;">Disponibilités</h2>
-  <p style="text-align:center;">🟢 Libre &nbsp;&nbsp; 🔴 Réservé</p>
-
-  <div class="calendar">
-    <div class="day free">1</div>
-    <div class="day free">2</div>
-    <div class="day booked">3</div>
-    <div class="day booked">4</div>
-    <div class="day free">5</div>
-    <div class="day free">6</div>
-    <div class="day free">7</div>
+<section id="photos">
+  <h2>Galerie photos</h2>
+  <div class="gallery">
+    <img src="https://via.placeholder.com/400x300" alt="Salon" />
+    <img src="https://via.placeholder.com/400x300" alt="Cuisine" />
+    <img src="https://via.placeholder.com/400x300" alt="Chambre" />
+    <img src="https://via.placeholder.com/400x300" alt="Jardin" />
   </div>
 </section>
 
-<section id="contact" style="text-align:center;">
-  <h2>Contact</h2>
-  📧 villa.caboua@gmail.com<br><br>
-  📞 06 90 52 06 16
+<section id="tarifs" class="tarifs">
+  <h2>Tarifs</h2>
+  <table>
+    <tr>
+      <th>Période</th>
+      <th>Prix / nuit</th>
+    </tr>
+    <tr>
+      <td>Basse saison</td>
+      <td>140 €</td>
+    </tr>
+    <tr>
+      <td>Moyenne saison</td>
+      <td>160 €</td>
+    </tr>
+    <tr>
+      <td>Haute saison</td>
+      <td>180 €</td>
+    </tr>
+  </table>
+</section>
+
+<section id="contact">
+  <h2>Contact & réservation</h2>
+  <p>
+    Pour toute demande de disponibilité ou de réservation, merci de nous contacter :
+  </p>
+  <p>
+    📧 Email : villa.caboua@gmail.com<br />
+    📞 Téléphone : 06 90 52 06 16
+  </p>
 </section>
 
 <footer>
-  © 2026 – Villa CABOUA Resort 5★ – Guadeloupe
+  <p>© 2026 – Location saisonnière maison 3 chambres</p>
 </footer>
 
-<a href="#" class="whatsapp-float" onclick="openWhatsApp(); return false;">
-<svg viewBox="0 0 32 32"><path d="M19.11 17.93c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.44-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.61-.66 1.84-1.29.23-.63.23-1.18.16-1.29-.07-.11-.25-.18-.52-.32z"/></svg>
+<a href="#" class="whatsapp-float" onclick="openWhatsApp(); return false;" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.11 17.93c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.44-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.61-.66 1.84-1.29.23-.63.23-1.18.16-1.29-.07-.11-.25-.18-.52-.32zM16.02 3C9.4 3 4 8.4 4 15.02c0 2.64.86 5.09 2.32 7.08L4 29l7.1-2.28a11.96 11.96 0 004.92 1.04h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.74h-.01a9.69 9.69 0 01-4.94-1.36l-.35-.21-4.21 1.35 1.37-4.1-.23-.37a9.68 9.68 0 01-1.5-5.03c0-5.34 4.35-9.69 9.69-9.69 5.34 0 9.69 4.35 9.69 9.69 0 5.34-4.35 9.69-9.69 9.69z"/>
+  </svg>
 </a>
 
 <script>
-function openWhatsApp() {
-  const arrivee = prompt("Date d'arrivée :");
-  if (!arrivee) return;
-  const depart = prompt("Date de départ :");
-  if (!depart) return;
-  const personnes = prompt("Nombre de personnes :");
-  if (!personnes) return;
+  function openWhatsApp() {
+    const arrivee = prompt("Date d'arrivée (JJ/MM/AAAA) :");
+    if (!arrivee) return;
+    const depart = prompt("Date de départ (JJ/MM/AAAA) :");
+    if (!depart) return;
+    const personnes = prompt("Nombre de personnes :");
+    if (!personnes) return;
 
-  const message =
-    "Bonjour, je souhaite réserver la Villa CABOUA.\n" +
-    "Dates : " + arrivee + " au " + depart + "\n" +
-    "Personnes : " + personnes;
+    const message = `Bonjour, je souhaite réserver la Villa CABOUA.%0A` +
+                    `Dates : ${arrivee} au ${depart}%0A` +
+                    `Nombre de personnes : ${personnes}`;
 
-  window.open(
-    "https://wa.me/590690520616?text=" + encodeURIComponent(message),
-    "_blank"
-  );
-}
+    window.open(`https://wa.me/590690520616?text=${message}`, '_blank');
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.card').forEach(card => {
+    observer.observe(card);
+  });
 </script>
 
 </body>
