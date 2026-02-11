@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* Reset & base */
+/* Base */
 body, h1,h2,h3,p,ul {margin:0;padding:0;}
 body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#333; line-height:1.5; }
 a { text-decoration:none; color:inherit; }
@@ -56,18 +56,10 @@ section { max-width:1200px; margin:40px auto; background:white; padding:30px; bo
 .card:hover { transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.15); }
 .equip-main { background: linear-gradient(135deg,#27ae60,#2ecc71); color:white; font-weight:bold; }
 
-/* Calendrier 2 mois */
+/* Calendrier */
 #calendar { max-width:1100px; margin:0 auto; }
 
-/* Why us & testimonials */
-.why-us ul { list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; padding:0; margin-top:20px; }
-.why-us li { background:#27ae60; color:white; padding:20px; border-radius:8px; text-align:center; font-weight:bold; font-size:1rem; }
-.testimonials blockquote { background:#f1f1f1; padding:20px; border-left:5px solid #27ae60; margin-bottom:20px; border-radius:6px; font-style:italic; }
-
-/* Footer */
-footer { text-align:center; padding:30px; background:#2c3e50; color:white; margin-top:40px; }
-
-/* WhatsApp flottant */
+/* Contact & WhatsApp */
 .whatsapp-float {
   position: fixed; bottom:20px; right:20px; width:60px; height:60px;
   background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center;
@@ -83,28 +75,39 @@ footer { text-align:center; padding:30px; background:#2c3e50; color:white; margi
 
 <header>
   <h1>VILLA CABOUA</h1>
-  <p>Vacances de rêve en Guadeloupe</p>
+  <p>Calme et sérénité en Guadeloupe</p>
   <a href="#calendar" class="btn-primary">Voir disponibilités</a>
 </header>
 
 <nav>
-  <a href="#villa">Villa</a>
+  <a href="#description">Description</a>
+  <a href="#chambres">Chambres</a>
   <a href="#equipements">Équipements</a>
   <a href="#calendar">Disponibilités</a>
-  <a href="#why-us">Pourquoi nous choisir</a>
-  <a href="#testimonials">Avis clients</a>
   <a href="#contact">Contact</a>
 </nav>
 
-<section id="villa">
-  <div class="villa-card">
-    <img src="https://via.placeholder.com/800x400" alt="Villa CABOUA">
-    <h2>Villa CABOUA</h2>
-    <p>À partir de 140 €/nuit</p>
-    <a href="#calendar">Voir disponibilité</a>
-  </div>
+<!-- Description -->
+<section id="description">
+  <h2>🌴 Villa CABOUA – Calme et sérénité en Guadeloupe 🌴</h2>
+  <p>Villa récente, les photos sont sur demande. Disponibilités à partir du <strong>01 mars</strong>.</p>
+  <p>Entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe, la Villa CABOUA est l’endroit idéal pour un séjour placé sous le signe de la détente et du calme, au cœur de la Côte Sous-le-Vent.</p>
+  <p>Située dans les hauteurs de Bouillante, la villa offre un cadre paisible et une atmosphère propice au repos.</p>
 </section>
 
+<!-- Chambres -->
+<section id="chambres">
+  <h2>🛏️ Les Chambres</h2>
+  <ul>
+    <li>Suite parentale climatisée avec lit 160 × 200 cm, salle d’eau attenante (grande douche à l’italienne et WC) et accès direct à la terrasse</li>
+    <li>Deux chambres climatisées avec lit 160 × 200 cm, vue sur le jardin</li>
+    <li>Salle d’eau indépendante avec grande douche à l’italienne et WC</li>
+    <li>WC indépendant</li>
+    <li>Canapé convertible dans le séjour</li>
+  </ul>
+</section>
+
+<!-- Équipements -->
 <section id="equipements">
   <h2>Équipements & Confort</h2>
   <div class="stars">★★★★★</div>
@@ -134,40 +137,40 @@ footer { text-align:center; padding:30px; background:#2c3e50; color:white; margi
   </div>
 </section>
 
+<!-- Calendrier -->
 <section id="calendar">
   <h2>Disponibilités en temps réel</h2>
-  <p>Les périodes déjà réservées sont indiquées ci-dessous.</p>
   <div id="fullcalendar"></div>
 </section>
 
-<section id="why-us">
-  <h2>Pourquoi choisir Villa CABOUA ?</h2>
+<!-- Conditions -->
+<section id="conditions">
+  <h2>Conditions de réservation</h2>
   <ul>
-    <li>Tarifs compétitifs</li>
-    <li>Conciergerie disponible</li>
-    <li>Service haut de gamme</li>
-    <li>Proximité plages & attractions</li>
+    <li>Acompte de 30 % à régler par virement à la réservation</li>
+    <li>Solde à régler 1 semaine avant l’arrivée</li>
+    <li>Dépôt de garantie : 1000 € (non encaissé)</li>
+    <li>Pas de fêtes ni événements</li>
   </ul>
+  <h3>Non compris</h3>
+  <ul>
+    <li>Taxe de séjour : 1,50 € / nuit / adulte</li>
+    <li>Forfait préparation et linge : 120 €</li>
+  </ul>
+  <h3>Séjour minimum : 5 nuits</h3>
+  <p>🎉 Remise de 10 % pour tout séjour à partir de 7 nuits</p>
 </section>
 
-<section id="testimonials">
-  <h2>Avis de nos clients</h2>
-  <blockquote>★★★★★ Super séjour ! La villa est magnifique et très confortable. – Marie D.</blockquote>
-  <blockquote>★★★★★ Accueil chaleureux et services parfaits ! – Julien P.</blockquote>
-  <blockquote>★★★★★ Séjour inoubliable avec toute la famille. – Sophie L.</blockquote>
-</section>
-
+<!-- Contact -->
 <section id="contact">
   <h2>Contact & Réservation</h2>
   <p>Email : <a href="mailto:villa.caboua@gmail.com">villa.caboua@gmail.com</a></p>
   <p>Téléphone : <a href="tel:+590690520616">06 90 52 06 16</a></p>
-  <p>
-    <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA" target="_blank" style="background:#25D366;color:white;padding:12px 25px;border-radius:6px;">💬 Réserver via WhatsApp</a>
-  </p>
+  <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA" target="_blank" style="background:#25D366;color:white;padding:12px 25px;border-radius:6px;display:inline-block;margin-top:10px;">💬 Réserver via WhatsApp</a>
 </section>
 
 <footer>
-  <p>© 2026 – Villa CABOUA | Location saisonnière</p>
+  <p>© 2026 – Villa CABOUA | Location saisonnière 3 chambres</p>
 </footer>
 
 <!-- FullCalendar JS -->
