@@ -12,26 +12,30 @@
 <style>
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-family:Arial, sans-serif;
   background:#f4f4f4;
   color:#222;
 }
 
-/* HEADER AVEC BUDDHA */
+/* HEADER */
 header{
-  background:url('BUDDHA.jpg') center/cover no-repeat;
-  height:300px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BUDDHA.jpg') center top/cover no-repeat;
   color:white;
-  text-shadow:0 2px 10px rgba(0,0,0,0.6);
+  text-align:center;
+  padding:120px 20px;
 }
 
 header h1{
   font-size:3rem;
-  margin:0;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowMove 5s linear infinite;
 }
+
+@keyframes rainbowMove{0% {background-position:0% 50%;}100% {background-position:100% 50%;}}
+
+header p{font-size:1.2rem;}
 
 /* LAYOUT */
 .container{
@@ -42,8 +46,8 @@ header h1{
   padding:0 20px;
 }
 
-.left{ flex:2; }
-.right{ flex:1; }
+.left{flex:2;}
+.right{flex:1;}
 
 .section{
   background:white;
@@ -53,6 +57,7 @@ header h1{
   box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
+/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -64,7 +69,7 @@ header h1{
   border-radius:10px;
 }
 
-/* EQUIPEMENTS */
+/* EQUIP */
 .equip-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -92,12 +97,6 @@ header h1{
   top:20px;
 }
 
-.price-night{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
 label{
   font-weight:bold;
   display:block;
@@ -122,7 +121,7 @@ label{
 
 .btn{
   width:100%;
-  padding:14px;
+  padding:12px;
   background:#e67e22;
   border:none;
   border-radius:10px;
@@ -132,36 +131,56 @@ label{
   cursor:pointer;
 }
 
-/* FACTURATION */
-.billing-line{
-  display:flex;
-  justify-content:space-between;
-  margin:6px 0;
+#billing{
+  margin-top:15px;
   font-size:14px;
 }
 
-.total{
-  font-weight:bold;
-  font-size:18px;
-  margin-top:10px;
+.billing-line{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:5px;
 }
 
-/* MOBILE */
+.billing-line.total{
+  font-weight:bold;
+  font-size:16px;
+}
+
 @media(max-width:900px){
-  .container{ flex-direction:column; }
+  .container{
+    flex-direction:column;
+  }
+  .gallery{
+    grid-template-columns:1fr;
+  }
+  .equip-grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Villa CABOUA</h1>
+<h1>Villa CABOUA</h1>
+<p>Calme et sérénité en Guadeloupe</p>
 </header>
 
 <div class="container">
 
-  <!-- COLONNE GAUCHE -->
+  <!-- GAUCHE -->
   <div class="left">
+
+    <div class="section">
+      <h2>Galerie</h2>
+      <div class="gallery">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+      </div>
+    </div>
 
     <div class="section">
       <h2>Description</h2>
@@ -169,17 +188,25 @@ label{
         Villa moderne située en Guadeloupe, idéale pour un séjour en famille.
         Terrasse aménagée, jardin tropical, environnement calme.
       </p>
+      <ul>
+        <li>Suite parentale avec salle d’eau et terrasse</li>
+        <li>2 chambres doubles climatisées</li>
+        <li>Canapé convertible</li>
+        <li>Terrasse et jardin tropical</li>
+      </ul>
     </div>
 
     <div class="section">
       <h2>Équipements</h2>
       <div class="equip-grid">
-        <div class="equip-item"><i class="fa-solid fa-wifi"></i> Wi-Fi</div>
+        <div class="equip-item"><i class="fa-solid fa-wifi"></i> Internet haut débit</div>
         <div class="equip-item"><i class="fa-solid fa-snowflake"></i> Climatisation</div>
-        <div class="equip-item"><i class="fa-solid fa-square-parking"></i> Parking</div>
+        <div class="equip-item"><i class="fa-solid fa-square-parking"></i> Parking privé</div>
+        <div class="equip-item"><i class="fa-solid fa-bed"></i> Lits confortables</div>
+        <div class="equip-item"><i class="fa-solid fa-tv"></i> Télévision écran plat</div>
         <div class="equip-item"><i class="fa-solid fa-utensils"></i> Cuisine équipée</div>
-        <div class="equip-item"><i class="fa-solid fa-tv"></i> Télévision</div>
-        <div class="equip-item"><i class="fa-solid fa-bed"></i> Draps fournis</div>
+        <div class="equip-item"><i class="fa-solid fa-mug-hot"></i> Cafetière</div>
+        <div class="equip-item"><i class="fa-solid fa-seedling"></i> Jardin clôturé</div>
       </div>
     </div>
 
@@ -191,11 +218,10 @@ label{
 
   </div>
 
-  <!-- COLONNE DROITE -->
+  <!-- DROITE -->
   <div class="right">
     <div class="booking">
-
-      <div class="price-night">180 € / nuit</div>
+      <h3>180 € / nuit</h3>
 
       <label>Dates</label>
       <input id="calendar" style="width:100%;padding:8px;">
@@ -214,95 +240,43 @@ label{
         <button onclick="changeChild(1)">+</button>
       </div>
 
-      <div id="billing" style="margin-top:15px;"></div>
+      <div id="billing"></div>
 
       <button class="btn" onclick="reserve()">Réserver</button>
-
     </div>
   </div>
 
 </div>
 
 <script>
-let startDate,endDate;
-let adults=2, children=0;
-
-flatpickr("#calendar",{
-  mode:"range",
-  minDate:"today",
-  dateFormat:"d/m/Y",
-  onChange:function(d){
-    if(d.length===2){
-      startDate=d[0];
-      endDate=d[1];
-      calculate();
-    }
-  }
-});
-
-function changeAdult(n){
-  adults+=n;
-  if(adults<1) adults=1;
-  if(adults>6) adults=6;
-  document.getElementById("adultCount").innerText=adults;
-  calculate();
-}
-
-function changeChild(n){
-  children+=n;
-  if(children<0) children=0;
-  if(children>6) children=6;
-  document.getElementById("childCount").innerText=children;
-}
-
-function calculate(){
-  if(!startDate||!endDate) return;
-
-  let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
-  if(nights<4){
-    document.getElementById("billing").innerHTML="Minimum 4 nuits";
-    return;
-  }
-
-  let subtotal=nights*180;
-  let tax=adults*1.5;
-  let cleaning=120;
-  let total=subtotal+tax+cleaning;
-
-  document.getElementById("billing").innerHTML=
-    `<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
-     <div class="billing-line"><span>Taxe de séjour</span><span>${tax.toFixed(2)} €</span></div>
-     <div class="billing-line"><span>Frais de ménage</span><span>${cleaning.toFixed(2)} €</span></div>
-     <hr>
-     <div class="billing-line total"><span>Prix total</span><span>${total.toFixed(2)} €</span></div>`;
-}
-
-function reserve(){
-  alert("Simulation réservation");
-}
-</script>
-<script>
 let startDate, endDate;
 let adults = 2, children = 0;
 
+const MAX_ADULTS = 6;
+const MAX_TOTAL = 8;
+const MIN_NIGHTS = 4;
+
 flatpickr("#calendar",{
   mode:"range",
   minDate:"today",
   dateFormat:"d/m/Y",
-  onChange:function(d){
-    if(d.length===2){
-      startDate=d[0];
-      endDate=d[1];
+  onChange:function(selectedDates){
+    if(selectedDates.length === 2){
+      let start = selectedDates[0];
+      let end = selectedDates[1];
+      let nights = Math.ceil((end - start)/(1000*60*60*24));
 
-      let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
-
-      if(nights < 4){
-        alert("Minimum 4 nuits obligatoires");
+      if(nights < MIN_NIGHTS){
+        alert("Séjour minimum de 4 nuits.");
         this.clear();
-        document.getElementById("billing").innerHTML="";
+        document.getElementById("billing").innerHTML = "";
+        startDate = null;
+        endDate = null;
         return;
       }
 
+      startDate = start;
+      endDate = end;
       calculate();
     }
   }
@@ -310,18 +284,9 @@ flatpickr("#calendar",{
 
 function changeAdult(n){
   let newAdults = adults + n;
-
   if(newAdults < 1) return;
-  if(newAdults > 6){
-    alert("Maximum 6 adultes");
-    return;
-  }
-
-  if(newAdults + children > 8){
-    alert("Maximum 8 personnes au total");
-    return;
-  }
-
+  if(newAdults > MAX_ADULTS){ alert("Maximum 6 adultes."); return; }
+  if(newAdults + children > MAX_TOTAL){ alert("Maximum 8 personnes total."); return; }
   adults = newAdults;
   document.getElementById("adultCount").innerText = adults;
   calculate();
@@ -329,14 +294,8 @@ function changeAdult(n){
 
 function changeChild(n){
   let newChildren = children + n;
-
   if(newChildren < 0) return;
-
-  if(adults + newChildren > 8){
-    alert("Maximum 8 personnes au total");
-    return;
-  }
-
+  if(adults + newChildren > MAX_TOTAL){ alert("Maximum 8 personnes total."); return; }
   children = newChildren;
   document.getElementById("childCount").innerText = children;
   calculate();
@@ -344,24 +303,27 @@ function changeChild(n){
 
 function calculate(){
   if(!startDate || !endDate) return;
+  let nights = Math.ceil((endDate - startDate)/(1000*60*60*24));
+  let pricePerNight = 180;
+  let cleaning = 120;
+  let tax = adults * 1.5;
+  let subtotal = nights * pricePerNight;
+  let total = subtotal + cleaning + tax;
 
-  let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
-
-  let subtotal=nights*180;
-  let tax=adults*1.5;
-  let cleaning=120;
-  let total=subtotal+tax+cleaning;
-
-  document.getElementById("billing").innerHTML=
+  document.getElementById("billing").innerHTML =
     `<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
      <div class="billing-line"><span>Taxe de séjour</span><span>${tax.toFixed(2)} €</span></div>
      <div class="billing-line"><span>Frais de ménage</span><span>${cleaning.toFixed(2)} €</span></div>
      <hr>
-     <div class="billing-line total"><span>Prix total</span><span>${total.toFixed(2)} €</span></div>`;
+     <div class="billing-line total"><span>Total</span><span>${total.toFixed(2)} €</span></div>`;
 }
 
 function reserve(){
-  alert("Simulation réservation");
+  if(!startDate || !endDate){
+    alert("Veuillez sélectionner vos dates.");
+    return;
+  }
+  alert("Simulation réservation validée !");
 }
 </script>
 
