@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villa CABOUA – Guadeloupe</title>
 
-<!-- FullCalendar -->
+<!-- FullCalendar Core + Plugins -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
@@ -22,7 +22,7 @@ body{
 
 /* HERO IMAGE */
 header{
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BUDDHA.jpg') center top/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('buddha.jpg') center top/cover no-repeat;
   color:white;
   text-align:center;
   padding:120px 20px;
@@ -104,12 +104,16 @@ section{
 }
 
 /* CALENDAR */
-#calendar1, #calendar2{
+#calendar-wrapper{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.fc {
   background:white;
-  padding:20px;
   border-radius:16px;
+  padding:10px;
   box-shadow:0 10px 40px rgba(0,0,0,0.08);
-  margin-bottom:20px;
 }
 .reserve-btn{
   display:none;
@@ -232,9 +236,9 @@ section{
 <!-- DISPONIBILITES -->
 <section id="disponibilites" class="container">
 <h2>Disponibilités</h2>
-<div style="display:flex; gap:20px; flex-wrap:wrap;">
-  <div id="calendar1" style="flex:1; min-width:300px;"></div>
-  <div id="calendar2" style="flex:1; min-width:300px;"></div>
+<div id="calendar-wrapper">
+  <div id="calendar1" class="fc"></div>
+  <div id="calendar2" class="fc"></div>
 </div>
 <div id="total"></div>
 <div style="text-align:center;">
@@ -264,11 +268,12 @@ section{
 </section>
 
 <script>
+// Tarif
 const TARIF_NUIT = 180;
 let selectedStart = null;
 let selectedEnd = null;
 
-// Charger événements ICS
+// Fonction pour récupérer événements ICS (dates réservées)
 async function loadEvents(){
   const url = 'https://calendar.google.com/calendar/ical/412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd%40group.calendar.google.com/public/basic.ics';
   const res = await fetch(url);
@@ -278,23 +283,18 @@ async function loadEvents(){
   let currentEvent = {};
   lines.forEach(line=>{
     if(line.startsWith('BEGIN:VEVENT')) currentEvent = {};
-    if(line.startsWith('DTSTART')) currentEvent.start = line.split(':')[1];
-    if(line.startsWith('DTEND')) currentEvent.end = line.split(':')[1];
+    if(line.startsWith('DTSTART')) currentEvent.start = line.split(':')[1].substring(0,8);
+    if(line.startsWith('DTEND')) currentEvent.end = line.split(':')[1].substring(0,8);
     if(line.startsWith('END:VEVENT')) events.push(currentEvent);
   });
   return events.map(e=>{
-    return {
-      start:e.start.substring(0,8),
-      end:e.end.substring(0,8),
-      display:'background',
-      color:'#dcdcdc'
-    };
+    return { start:e.start, end:e.end, display:'background', color:'#dcdcdc' };
   });
 }
 
+// Créer deux calendriers côte à côte pour mois en cours + suivant
 document.addEventListener('DOMContentLoaded', async function(){
   const events = await loadEvents();
-
   const today = new Date();
   const nextMonth = new Date(today.getFullYear(), today.getMonth()+1,1);
 
@@ -327,6 +327,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   });
 });
 
+// Réservation WhatsApp
 document.getElementById('reserveBtn').addEventListener('click',function(){
   const start = selectedStart;
   const end = selectedEnd;
