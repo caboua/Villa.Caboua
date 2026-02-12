@@ -281,6 +281,89 @@ function reserve(){
   alert("Simulation réservation");
 }
 </script>
+<script>
+let startDate, endDate;
+let adults = 2, children = 0;
+
+flatpickr("#calendar",{
+  mode:"range",
+  minDate:"today",
+  dateFormat:"d/m/Y",
+  onChange:function(d){
+    if(d.length===2){
+      startDate=d[0];
+      endDate=d[1];
+
+      let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
+
+      if(nights < 4){
+        alert("Minimum 4 nuits obligatoires");
+        this.clear();
+        document.getElementById("billing").innerHTML="";
+        return;
+      }
+
+      calculate();
+    }
+  }
+});
+
+function changeAdult(n){
+  let newAdults = adults + n;
+
+  if(newAdults < 1) return;
+  if(newAdults > 6){
+    alert("Maximum 6 adultes");
+    return;
+  }
+
+  if(newAdults + children > 8){
+    alert("Maximum 8 personnes au total");
+    return;
+  }
+
+  adults = newAdults;
+  document.getElementById("adultCount").innerText = adults;
+  calculate();
+}
+
+function changeChild(n){
+  let newChildren = children + n;
+
+  if(newChildren < 0) return;
+
+  if(adults + newChildren > 8){
+    alert("Maximum 8 personnes au total");
+    return;
+  }
+
+  children = newChildren;
+  document.getElementById("childCount").innerText = children;
+  calculate();
+}
+
+function calculate(){
+  if(!startDate || !endDate) return;
+
+  let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
+
+  let subtotal=nights*180;
+  let tax=adults*1.5;
+  let cleaning=120;
+  let total=subtotal+tax+cleaning;
+
+  document.getElementById("billing").innerHTML=
+    `<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
+     <div class="billing-line"><span>Taxe de séjour</span><span>${tax.toFixed(2)} €</span></div>
+     <div class="billing-line"><span>Frais de ménage</span><span>${cleaning.toFixed(2)} €</span></div>
+     <hr>
+     <div class="billing-line total"><span>Prix total</span><span>${total.toFixed(2)} €</span></div>`;
+}
+
+function reserve(){
+  alert("Simulation réservation");
+}
+</script>
 
 </body>
 </html>
