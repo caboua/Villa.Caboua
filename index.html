@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA – Location Saisonnière</title>
+<title>Villa CABOUA – Disponibilités</title>
 
-<!-- FullCalendar + Google Calendar -->
+<!-- FullCalendar -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/google-calendar.global.min.js"></script>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <!-- Flatpickr -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#222;}
@@ -54,19 +54,20 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
 #billing{margin-top:15px;font-size:14px;}
 .billing-line{display:flex;justify-content:space-between;margin-top:5px;}
 .billing-line.total{font-weight:bold;font-size:16px;}
-#calendar-wrapper{margin-top:20px;}
+#calendar-wrapper{display:flex;gap:10px;flex-wrap:wrap;}
 
 .whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:1000;animation:pulse 2s infinite;}
 .whatsapp-float svg{width:34px;height:34px;fill:white;}
 @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
-@media(max-width:900px){.container{flex-direction:column;}}
+
+@media(max-width:900px){.container{flex-direction:column;} #calendar-wrapper{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>VILLA CABOUA</h1>
-  <p>Calme et sérénité en Guadeloupe</p>
+<h1>VILLA CABOUA</h1>
+<p>Calme et sérénité en Guadeloupe</p>
 </header>
 
 <nav>
@@ -79,24 +80,21 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
 
 <div class="container">
 
-  <!-- COLONNE GAUCHE -->
+  <!-- GAUCHE -->
   <div class="left">
     <div class="section" id="photos">
       <h2>Galerie</h2>
       <div class="gallery">
-        <img src="https://via.placeholder.com/600x400" alt="Salon">
-        <img src="https://via.placeholder.com/600x400" alt="Cuisine">
-        <img src="https://via.placeholder.com/600x400" alt="Chambre">
-        <img src="https://via.placeholder.com/600x400" alt="Jardin">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
       </div>
     </div>
 
     <div class="section" id="description">
       <h2>Description</h2>
-      <p>
-        Villa moderne située en Guadeloupe, idéale pour un séjour en famille.
-        Terrasse aménagée, jardin tropical, environnement calme.
-      </p>
+      <p>Villa moderne située en Guadeloupe, idéale pour un séjour en famille.</p>
       <ul>
         <li>Suite parentale avec salle d’eau</li>
         <li>2 chambres doubles</li>
@@ -114,8 +112,6 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
         <div class="equip-item"><i class="fa-solid fa-utensils"></i> Cuisine équipée</div>
         <div class="equip-item"><i class="fa-solid fa-tv"></i> Télévision</div>
         <div class="equip-item"><i class="fa-solid fa-bed"></i> Draps fournis</div>
-        <div class="equip-item"><i class="fa-solid fa-umbrella-beach"></i> Terrasse</div>
-        <div class="equip-item"><i class="fa-solid fa-seedling"></i> Jardin clôturé</div>
       </div>
     </div>
 
@@ -126,12 +122,10 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
     </div>
   </div>
 
-  <!-- COLONNE DROITE -->
+  <!-- DROITE -->
   <div class="right" id="booking">
     <div class="booking">
       <h3>180 € / nuit</h3>
-
-      <label>Dates</label>
       <div id="calendar-wrapper"></div>
 
       <label>Adultes</label>
@@ -150,56 +144,62 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
 
 <!-- WhatsApp flottant -->
 <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA" class="whatsapp-float" target="_blank">
-<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M19.11 17.93c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.44-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.61-.66 1.84-1.29.23-.63.23-1.18.16-1.29-.07-.11-.25-.18-.52-.32zM16.02 3C9.4 3 4 8.4 4 15.02c0 2.64.86 5.09 2.32 7.08L4 29l7.1-2.28a11.96 11.96 0 004.92 1.04h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3z"/></svg>
+<svg viewBox="0 0 32 32"><path d="M19.11 17.93c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.44-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.61-.66 1.84-1.29.23-.63.23-1.18.16-1.29-.07-.11-.25-.18-.52-.32zM16.02 3C9.4 3 4 8.4 4 15.02c0 2.64.86 5.09 2.32 7.08L4 29l7.1-2.28a11.96 11.96 0 004.92 1.04h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3z"/></svg>
 </a>
 
 <script>
-// Paramètres réservation
+// Paramètres
 const MAX_ADULTS=6, MAX_TOTAL=8, MIN_NIGHTS=4;
-let adults=2, children=0;
-let startDate,endDate;
+let adults=2, children=0, startDate, endDate;
 
+// Sélection adultes/enfants
 const adultSelect=document.getElementById("adultSelect");
 const childSelect=document.getElementById("childSelect");
 for(let i=1;i<=MAX_ADULTS;i++) adultSelect.innerHTML+=`<option value="${i}">${i}</option>`;
 for(let i=0;i<=MAX_TOTAL;i++) childSelect.innerHTML+=`<option value="${i}">${i}</option>`;
 adultSelect.value=adults; childSelect.value=children;
-
 adultSelect.addEventListener('change',updateGuests);
 childSelect.addEventListener('change',updateGuests);
+
 function updateGuests(){
   let a=parseInt(adultSelect.value), c=parseInt(childSelect.value);
   if(a+c>MAX_TOTAL){ alert("Maximum 8 personnes."); c=MAX_TOTAL-a; childSelect.value=c; }
-  adults=a; children=c; calculate();
+  adults=a; children=c;
+  calculate();
 }
 
-// FullCalendar pour afficher les 2 mois et bloquer les dates réservées
+// FullCalendar 2 mois synchronisés + blocage Google Agenda
 document.addEventListener('DOMContentLoaded', function() {
   const calendarId="412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd@group.calendar.google.com";
-  const calendarWrapper=document.getElementById("calendar-wrapper");
+  const wrapper=document.getElementById("calendar-wrapper");
 
-  // Créer deux div pour les 2 mois
-  const cal1=document.createElement("div"); cal1.style.width="100%"; cal1.style.marginBottom="20px";
-  const cal2=document.createElement("div"); cal2.style.width="100%";
-  calendarWrapper.appendChild(cal1); calendarWrapper.appendChild(cal2);
+  // Crée 2 div pour les 2 mois
+  const cal1=document.createElement("div"); cal1.style.flex="1"; wrapper.appendChild(cal1);
+  const cal2=document.createElement("div"); cal2.style.flex="1"; wrapper.appendChild(cal2);
 
   const today=new Date();
   const nextMonth=new Date(today.getFullYear(), today.getMonth()+1, 1);
 
-  [ {el:cal1, date:today}, {el:cal2, date:nextMonth} ].forEach(c=>{
+  [ {el:cal1,date:today}, {el:cal2,date:nextMonth} ].forEach(c=>{
     const calendar=new FullCalendar.Calendar(c.el,{
       initialView:'dayGridMonth',
       initialDate:c.date,
       locale:'fr',
-      googleCalendarApiKey:'AIzaSyAnLIfv6qKVJmXrVLtHPy1KAriZaO7pE2Y', // Ta clé API
+      googleCalendarApiKey:'AIzaSyAnLIfv6qKVJmXrVLtHPy1KAriZaO7pE2Y',
       events:{ googleCalendarId: calendarId },
       selectable:true,
-      select:function(info){
-        const nights=Math.ceil((info.end-info.start)/(1000*60*60*24));
-        if(nights<MIN_NIGHTS){ alert("Séjour minimum 4 nuits."); return; }
-        startDate=info.start; endDate=new Date(info.end-1); calculate();
-      },
-      eventColor:'#dcdcdc'
+      eventColor:'#dcdcdc',
+      selectAllow: function(selectInfo){
+        const nights=Math.ceil((selectInfo.end-selectInfo.start)/(1000*60*60*24));
+        if(nights<MIN_NIGHTS) return false;
+        const events = calendar.getEvents();
+        for(let ev of events){
+          if(ev.start < selectInfo.end && ev.end > selectInfo.start) return false;
+        }
+        startDate=selectInfo.start; endDate=new Date(selectInfo.end-1);
+        calculate();
+        return true;
+      }
     });
     calendar.render();
   });
