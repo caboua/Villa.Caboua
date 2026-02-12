@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villa CABOUA – Bouillante</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <!-- FullCalendar -->
@@ -13,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
 <style>
-body {
+body{
   margin:0;
   font-family:'Poppins', sans-serif;
   background:#f5f6f8;
@@ -21,36 +20,31 @@ body {
 }
 
 /* HEADER */
-header {
+header{
   background:#2c3e50;
   color:white;
   padding:60px 20px;
   text-align:center;
 }
-
-header h1 {
+header h1{
   margin:0;
   font-size:42px;
   font-weight:600;
 }
-
-header p {
+header p{
   font-size:18px;
   opacity:0.9;
 }
 
 /* SECTION */
-section {
+section{
   padding:80px 20px;
 }
-
-.container {
+.container{
   max-width:1200px;
   margin:auto;
 }
-
-/* TITRES */
-h2 {
+h2{
   text-align:center;
   font-size:32px;
   margin-bottom:40px;
@@ -58,7 +52,7 @@ h2 {
 }
 
 /* DESCRIPTION */
-.description {
+.description{
   max-width:900px;
   margin:auto;
   text-align:center;
@@ -67,52 +61,46 @@ h2 {
 }
 
 /* CALENDAR PREMIUM */
-#disponibilites {
+#disponibilites{
   background:#ffffff;
 }
-
-.calendar-box {
+.calendar-box{
   background:white;
   padding:40px;
   border-radius:16px;
   box-shadow:0 15px 50px rgba(0,0,0,0.08);
 }
 
-.fc {
+/* Calendar style */
+.fc{
   font-family:'Poppins', sans-serif;
 }
-
-.fc-toolbar-title {
+.fc-toolbar-title{
   font-size:22px;
   font-weight:600;
 }
-
-.fc-button {
+.fc-button{
   background:#2c3e50 !important;
   border:none !important;
   border-radius:8px !important;
   padding:6px 14px !important;
 }
-
-.fc-button:hover {
+.fc-button:hover{
   background:#1b2836 !important;
 }
-
-.fc-daygrid-day {
+.fc-daygrid-day{
   border:1px solid #eee;
 }
-
-.fc-daygrid-day-number {
+.fc-daygrid-day-number{
   font-weight:500;
 }
-
-.fc .fc-bg-event {
+.fc .fc-bg-event{
   background:#dcdcdc !important;
   opacity:1 !important;
 }
 
 /* CONTACT BUTTON */
-.contact-btn {
+.contact-btn{
   display:inline-block;
   margin-top:40px;
   background:#25D366;
@@ -122,13 +110,12 @@ h2 {
   text-decoration:none;
   font-size:18px;
 }
-
-.contact-btn:hover {
+.contact-btn:hover{
   background:#1ebe5d;
 }
 
 /* FOOTER */
-footer {
+footer{
   text-align:center;
   padding:40px;
   background:#2c3e50;
@@ -138,9 +125,9 @@ footer {
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  header h1 {font-size:28px;}
-  h2 {font-size:24px;}
-  .calendar-box {padding:20px;}
+  header h1{font-size:28px;}
+  h2{font-size:24px;}
+  .calendar-box{padding:20px;}
 }
 </style>
 </head>
@@ -159,8 +146,9 @@ footer {
       🌴 Entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe,
       la Villa CABOUA vous accueille dans un cadre paisible sur les hauteurs de Bouillante.
       <br><br>
-      Maison 3 chambres climatisées – Capacité 6 personnes – Terrasse aménagée –
-      Cuisine entièrement équipée – À 5 minutes de la plage de Malendure.
+      Maison 3 chambres climatisées – Capacité 6 personnes –
+      Terrasse aménagée – Cuisine entièrement équipée –
+      À 5 minutes de la plage de Malendure.
     </div>
   </div>
 </section>
@@ -168,6 +156,7 @@ footer {
 <section id="disponibilites">
   <div class="container">
     <h2>Disponibilités</h2>
+
     <div class="calendar-box">
       <div id="calendar"></div>
     </div>
@@ -192,15 +181,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var calendarEl = document.getElementById('calendar');
 
+  var today = new Date();
+  var firstDayCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
   var calendar = new FullCalendar.Calendar(calendarEl, {
 
-    initialView: 'multiMonthYear',   // FORCE AFFICHAGE MULTI-MOIS
+    initialDate: firstDayCurrentMonth,
 
-    visibleRange: function(currentDate) {
-      var start = new Date(currentDate);
-      var end = new Date(currentDate);
-      end.setMonth(end.getMonth() + 2);
-      return { start: start, end: end };
+    initialView: 'multiMonth',
+
+    views: {
+      multiMonth: {
+        type: 'multiMonth',
+        duration: { months: 2 }
+      }
     },
 
     locale: 'fr',
