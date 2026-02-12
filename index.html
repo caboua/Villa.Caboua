@@ -3,225 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA – Bouillante</title>
+<title>Villa CABOUA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<!-- FullCalendar -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
 <style>
-body{
-  margin:0;
-  font-family:'Poppins', sans-serif;
-  background:#f5f6f8;
-  color:#333;
-}
-
-/* HEADER */
-header{
-  background:#2c3e50;
-  color:white;
-  padding:60px 20px;
-  text-align:center;
-}
-header h1{
-  margin:0;
-  font-size:42px;
-  font-weight:600;
-}
-header p{
-  font-size:18px;
-  opacity:0.9;
-}
-
-/* SECTION */
-section{
-  padding:80px 20px;
-}
-.container{
-  max-width:1200px;
-  margin:auto;
-}
-h2{
-  text-align:center;
-  font-size:32px;
-  margin-bottom:40px;
-  font-weight:600;
-}
-
-/* DESCRIPTION */
-.description{
-  max-width:900px;
-  margin:auto;
-  text-align:center;
-  line-height:1.8;
-  font-size:17px;
-}
-
-/* CALENDAR PREMIUM */
-#disponibilites{
-  background:#ffffff;
-}
-.calendar-box{
-  background:white;
-  padding:40px;
-  border-radius:16px;
-  box-shadow:0 15px 50px rgba(0,0,0,0.08);
-}
-
-/* Calendar style */
-.fc{
-  font-family:'Poppins', sans-serif;
-}
-.fc-toolbar-title{
-  font-size:22px;
-  font-weight:600;
-}
-.fc-button{
-  background:#2c3e50 !important;
-  border:none !important;
-  border-radius:8px !important;
-  padding:6px 14px !important;
-}
-.fc-button:hover{
-  background:#1b2836 !important;
-}
-.fc-daygrid-day{
-  border:1px solid #eee;
-}
-.fc-daygrid-day-number{
-  font-weight:500;
-}
-.fc .fc-bg-event{
-  background:#dcdcdc !important;
-  opacity:1 !important;
-}
-
-/* CONTACT BUTTON */
-.contact-btn{
-  display:inline-block;
-  margin-top:40px;
-  background:#25D366;
-  color:white;
-  padding:15px 30px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:18px;
-}
-.contact-btn:hover{
-  background:#1ebe5d;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:40px;
-  background:#2c3e50;
-  color:white;
-  font-size:14px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  header h1{font-size:28px;}
-  h2{font-size:24px;}
-  .calendar-box{padding:20px;}
-}
+body {font-family: Arial; margin:0; background:#f5f5f5;}
+section {padding:60px;}
+#calendar {max-width:1000px;margin:auto;}
+button {padding:15px 30px;font-size:18px;background:#2c3e50;color:white;border:none;border-radius:8px;margin-top:20px;}
+#total {font-size:22px;margin-top:20px;text-align:center;}
 </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Villa CABOUA</h1>
-  <p>Calme et sérénité à Bouillante – Guadeloupe</p>
-</header>
-
 <section>
-  <div class="container">
-    <h2>Présentation</h2>
-    <div class="description">
-      🌴 Entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe,
-      la Villa CABOUA vous accueille dans un cadre paisible sur les hauteurs de Bouillante.
-      <br><br>
-      Maison 3 chambres climatisées – Capacité 6 personnes –
-      Terrasse aménagée – Cuisine entièrement équipée –
-      À 5 minutes de la plage de Malendure.
-    </div>
-  </div>
+<h2 style="text-align:center;">Disponibilités</h2>
+<div id="calendar"></div>
+<div id="total"></div>
+<div style="text-align:center;">
+<button id="payer" style="display:none;">💳 Payer maintenant</button>
+</div>
 </section>
-
-<section id="disponibilites">
-  <div class="container">
-    <h2>Disponibilités</h2>
-
-    <div class="calendar-box">
-      <div id="calendar"></div>
-    </div>
-
-    <div style="text-align:center;">
-      <a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA"
-         target="_blank"
-         class="contact-btn">
-         💬 Demande de réservation
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  © 2026 Villa CABOUA – Bouillante, Guadeloupe
-</footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+let selectedStart = null;
+let selectedEnd = null;
+const TARIF = 180;
 
-  var calendarEl = document.getElementById('calendar');
+document.addEventListener('DOMContentLoaded', function() {
 
-  var today = new Date();
-  var firstDayCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-
-    initialDate: firstDayCurrentMonth,
-
-    initialView: 'multiMonth',
-
-    views: {
-      multiMonth: {
-        type: 'multiMonth',
-        duration: { months: 2 }
-      }
-    },
-
-    locale: 'fr',
-    height: 'auto',
-    multiMonthMaxColumns: 2,
-
-    headerToolbar: {
-      left: 'prev,next',
-      center: 'title',
-      right: ''
-    },
-
-    events: [
-      {
-        start: '2026-03-10',
-        end: '2026-03-18',
-        display: 'background'
+  const calendar = new FullCalendar.Calendar(
+    document.getElementById('calendar'),
+    {
+      initialView: 'multiMonth',
+      views: {
+        multiMonth: {
+          type: 'multiMonth',
+          duration: { months: 2 }
+        }
       },
-      {
-        start: '2026-04-05',
-        end: '2026-04-12',
-        display: 'background'
+      locale:'fr',
+      selectable:true,
+      select:function(info){
+
+        selectedStart = info.startStr;
+        selectedEnd = info.endStr;
+
+        const start = new Date(selectedStart);
+        const end = new Date(selectedEnd);
+        const nights = Math.ceil((end-start)/(1000*60*60*24));
+
+        if(nights < 5){
+          alert("Minimum 5 nuits");
+          return;
+        }
+
+        const total = nights * TARIF;
+
+        document.getElementById("total").innerHTML =
+          "Total : " + total + " € (" + nights + " nuits)";
+
+        document.getElementById("payer").style.display="inline-block";
       }
-    ]
-  });
+    });
 
   calendar.render();
+});
+
+document.getElementById("payer").addEventListener("click", async function(){
+
+  const response = await fetch("/create-checkout-session",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      startDate:selectedStart,
+      endDate:selectedEnd
+    })
+  });
+
+  const data = await response.json();
+  window.location = data.url;
 });
 </script>
 
