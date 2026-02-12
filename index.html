@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villa CABOUA – Location Saisonnière</title>
 
-<!-- Flatpickr pour le calendrier -->
+<!-- FullCalendar + Google Calendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/google-calendar.global.min.js"></script>
+
+<!-- Flatpickr -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<!-- Font Awesome pour icônes -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -49,7 +54,8 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
 #billing{margin-top:15px;font-size:14px;}
 .billing-line{display:flex;justify-content:space-between;margin-top:5px;}
 .billing-line.total{font-weight:bold;font-size:16px;}
-/* WhatsApp flottant */
+#calendar-wrapper{margin-top:20px;}
+
 .whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:1000;animation:pulse 2s infinite;}
 .whatsapp-float svg{width:34px;height:34px;fill:white;}
 @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
@@ -126,7 +132,7 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
       <h3>180 € / nuit</h3>
 
       <label>Dates</label>
-      <input id="calendar">
+      <div id="calendar-wrapper"></div>
 
       <label>Adultes</label>
       <select id="adultSelect"></select>
@@ -148,57 +154,63 @@ select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px 
 </a>
 
 <script>
-// Paramètres
+// Paramètres réservation
 const MAX_ADULTS=6, MAX_TOTAL=8, MIN_NIGHTS=4;
+let adults=2, children=0;
 let startDate,endDate;
-let adults=2,children=0;
 
-// Remplir selecteurs
-function populateGuests(){
-  const adultSelect=document.getElementById("adultSelect");
-  const childSelect=document.getElementById("childSelect");
-  adultSelect.innerHTML="";
-  childSelect.innerHTML="";
-  for(let i=1;i<=MAX_ADULTS;i++){ adultSelect.innerHTML+=`<option value="${i}">${i}</option>`;}
-  for(let i=0;i<=MAX_TOTAL;i++){ childSelect.innerHTML+=`<option value="${i}">${i}</option>`;}
-  adultSelect.value=adults; childSelect.value=children;
-}
-populateGuests();
+const adultSelect=document.getElementById("adultSelect");
+const childSelect=document.getElementById("childSelect");
+for(let i=1;i<=MAX_ADULTS;i++) adultSelect.innerHTML+=`<option value="${i}">${i}</option>`;
+for(let i=0;i<=MAX_TOTAL;i++) childSelect.innerHTML+=`<option value="${i}">${i}</option>`;
+adultSelect.value=adults; childSelect.value=children;
 
+adultSelect.addEventListener('change',updateGuests);
+childSelect.addEventListener('change',updateGuests);
 function updateGuests(){
-  const adultSelect=document.getElementById("adultSelect");
-  const childSelect=document.getElementById("childSelect");
-  let selectedAdults=parseInt(adultSelect.value);
-  let selectedChildren=parseInt(childSelect.value);
-  if(selectedAdults+selectedChildren>MAX_TOTAL){
-    alert("Nombre total maximum : 8");
-    childSelect.value=MAX_TOTAL-selectedAdults;
-    selectedChildren=MAX_TOTAL-selectedAdults;
-  }
-  adults=selectedAdults; children=selectedChildren;
-  calculate();
+  let a=parseInt(adultSelect.value), c=parseInt(childSelect.value);
+  if(a+c>MAX_TOTAL){ alert("Maximum 8 personnes."); c=MAX_TOTAL-a; childSelect.value=c; }
+  adults=a; children=c; calculate();
 }
 
-// Flatpickr calendrier
-flatpickr("#calendar",{
-  mode:"range",
-  minDate:"today",
-  dateFormat:"d/m/Y",
-  onChange:function(selectedDates){
-    if(selectedDates.length===2){
-      let nights=Math.ceil((selectedDates[1]-selectedDates[0])/(1000*60*60*24));
-      if(nights<MIN_NIGHTS){ alert("Séjour minimum 4 nuits."); this.clear(); startDate=null; endDate=null; document.getElementById("billing").innerHTML=""; return; }
-      startDate=selectedDates[0]; endDate=selectedDates[1]; calculate();
-    }
-  }
+// FullCalendar pour afficher les 2 mois et bloquer les dates réservées
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarId="412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd@group.calendar.google.com";
+  const calendarWrapper=document.getElementById("calendar-wrapper");
+
+  // Créer deux div pour les 2 mois
+  const cal1=document.createElement("div"); cal1.style.width="100%"; cal1.style.marginBottom="20px";
+  const cal2=document.createElement("div"); cal2.style.width="100%";
+  calendarWrapper.appendChild(cal1); calendarWrapper.appendChild(cal2);
+
+  const today=new Date();
+  const nextMonth=new Date(today.getFullYear(), today.getMonth()+1, 1);
+
+  [ {el:cal1, date:today}, {el:cal2, date:nextMonth} ].forEach(c=>{
+    const calendar=new FullCalendar.Calendar(c.el,{
+      initialView:'dayGridMonth',
+      initialDate:c.date,
+      locale:'fr',
+      googleCalendarApiKey:'AIzaSyAnLIfv6qKVJmXrVLtHPy1KAriZaO7pE2Y', // Ta clé API
+      events:{ googleCalendarId: calendarId },
+      selectable:true,
+      select:function(info){
+        const nights=Math.ceil((info.end-info.start)/(1000*60*60*24));
+        if(nights<MIN_NIGHTS){ alert("Séjour minimum 4 nuits."); return; }
+        startDate=info.start; endDate=new Date(info.end-1); calculate();
+      },
+      eventColor:'#dcdcdc'
+    });
+    calendar.render();
+  });
 });
 
 function calculate(){
   if(!startDate||!endDate) return;
-  let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
-  let subtotal=nights*180;
-  let tax=adults*1.5;
-  let total=subtotal+120+tax;
+  const nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
+  const subtotal=nights*180;
+  const tax=adults*1.5;
+  const total=subtotal+120+tax;
   document.getElementById("billing").innerHTML=
     `<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
      <div class="billing-line"><span>Taxe de séjour</span><span>${tax.toFixed(2)} €</span></div>
