@@ -3,51 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA</title>
+<title>Villa CABOUA – Guadeloupe</title>
 
+<!-- FullCalendar -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-body {font-family: Arial; margin:0; background:#f5f5f5;}
-section {padding:60px;}
-#calendar {max-width:1000px;margin:auto;}
-button {padding:15px 30px;font-size:18px;background:#2c3e50;color:white;border:none;border-radius:8px;margin-top:20px;}
-#total {font-size:22px;margin-top:20px;text-align:center;}
+body{
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background:#f5f6f8;
+  color:#333;
+}
+
+/* HERO IMAGE */
+header{
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('buddha.jpg') center top/cover no-repeat;
+  color:white;
+  text-align:center;
+  padding:120px 20px;
+}
+header h1{
+  font-size:3rem;
+  margin-bottom:10px;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowMove 5s linear infinite;
+}
+@keyframes rainbowMove{
+  0% {background-position:0% 50%;}
+  100% {background-position:100% 50%;}
+}
+header p{
+  font-size:1.2rem;
+}
+
+/* NAVIGATION */
+nav{
+  background:#2c3e50;
+  padding:10px;
+  text-align:center;
+}
+nav a{
+  color:white;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{
+  text-decoration:underline;
+}
+
+/* SECTIONS */
+section{
+  padding:60px 20px;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+/* ÉQUIPEMENTS */
+.equip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+.card i{
+  font-size:28px;
+  color:#27ae60;
+  margin-bottom:12px;
+}
+
+/* GALERIE */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+.gallery img{
+  width:100%;
+  border-radius:8px;
+}
+
+/* CALENDAR */
+#calendar{
+  max-width:1000px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+.reserve-btn{
+  display:none;
+  margin-top:20px;
+  padding:15px 30px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:18px;
+  cursor:pointer;
+}
+.reserve-btn:hover{
+  background:#1ebe5d;
+}
+#total{
+  text-align:center;
+  font-size:22px;
+  margin-top:20px;
+}
+
+/* AVIS */
+.avis-box{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+}
+.stars{
+  color:#f1c40f;
+  font-size:18px;
+  margin-bottom:8px;
+}
 </style>
 </head>
 <body>
 
-<section>
-<h2 style="text-align:center;">Disponibilités</h2>
-<div id="calendar"></div>
-<div id="total"></div>
-<div style="text-align:center;">
-<button id="payer" style="display:none;">💳 Payer maintenant</button>
+<!-- HERO -->
+<header>
+  <h1>VILLA CABOUA</h1>
+  <p>Calme et sérénité en Guadeloupe</p>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#description">Description</a>
+  <a href="#equipements">Équipements</a>
+  <a href="#photos">Photos</a>
+  <a href="#disponibilites">Disponibilités</a>
+  <a href="#avis">Avis</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- DESCRIPTION -->
+<section id="description" class="container">
+<h2>🌴 Villa CABOUA</h2>
+<p>Villa récente située entre la mer des Caraïbes et la forêt tropicale. Disponibilités à partir du 01 mars. Séjour minimum 5 nuits.</p>
+
+<h3>🏡 La Villa</h3>
+<ul>
+  <li>Terrasse aménagée avec coin repas et salon détente</li>
+  <li>Cuisine ouverte sur le séjour : plaque induction, four, micro-ondes, cafetière, bouilloire, grille-pain, grand réfrigérateur, lave-linge</li>
+</ul>
+
+<h3>🛏️ Chambres</h3>
+<ul>
+  <li>Suite parentale climatisée 160×200 + salle d’eau + WC + accès terrasse</li>
+  <li>2 chambres climatisées 160×200, vue jardin</li>
+  <li>Salle d’eau indépendante + WC</li>
+  <li>WC séparé</li>
+  <li>Canapé convertible dans le séjour</li>
+</ul>
+
+<h3>📍 Situation</h3>
+<ul>
+  <li>2 min du bourg de Bouillante</li>
+  <li>Proximité Bains Chauds & Réserve Cousteau</li>
+  <li>Point départ idéal pour Basse-Terre</li>
+</ul>
+</section>
+
+<!-- ÉQUIPEMENTS -->
+<section id="equipements" class="container">
+<h2>Équipements & Confort</h2>
+<div class="equip-grid">
+  <div class="card"><i class="fa-solid fa-wifi"></i>Internet haut débit</div>
+  <div class="card"><i class="fa-solid fa-snowflake"></i>Climatisation</div>
+  <div class="card"><i class="fa-solid fa-square-parking"></i>Parking privé</div>
+  <div class="card"><i class="fa-solid fa-pump-soap"></i>Produits d’entretien</div>
+  <div class="card"><i class="fa-solid fa-couch"></i>Canapé</div>
+  <div class="card"><i class="fa-solid fa-broom"></i>Aspirateur</div>
+  <div class="card"><i class="fa-solid fa-shirt"></i>Lave-linge</div>
+  <div class="card"><i class="fa-solid fa-bed"></i>Draps fournis</div>
+  <div class="card"><i class="fa-solid fa-mug-hot"></i>Cafetière</div>
+  <div class="card"><i class="fa-solid fa-utensils"></i>Ustensiles</div>
+  <div class="card"><i class="fa-solid fa-temperature-low"></i>Réfrigérateur</div>
+  <div class="card"><i class="fa-solid fa-microchip"></i>Micro-ondes</div>
+  <div class="card"><i class="fa-solid fa-fire-burner"></i>Four</div>
+  <div class="card"><i class="fa-solid fa-chair"></i>Table</div>
+  <div class="card"><i class="fa-solid fa-bread-slice"></i>Grille-pain</div>
+  <div class="card"><i class="fa-solid fa-tv"></i>Télévision</div>
+  <div class="card"><i class="fa-solid fa-house"></i>Mobilier</div>
+  <div class="card"><i class="fa-solid fa-umbrella-beach"></i>Terrasse</div>
+  <div class="card"><i class="fa-solid fa-seedling"></i>Jardin</div>
 </div>
 </section>
 
+<!-- GALERIE -->
+<section id="photos" class="container">
+<h2>Galerie photos</h2>
+<div class="gallery">
+<img src="https://via.placeholder.com/400x300" alt="Salon">
+<img src="https://via.placeholder.com/400x300" alt="Cuisine">
+<img src="https://via.placeholder.com/400x300" alt="Chambre">
+<img src="https://via.placeholder.com/400x300" alt="Jardin">
+</div>
+</section>
+
+<!-- CALENDAR / DISPONIBILITES -->
+<section id="disponibilites" class="container">
+<h2>Disponibilités</h2>
+<div id="calendar"></div>
+<div id="total"></div>
+<div style="text-align:center;">
+<button id="reserveBtn" class="reserve-btn">💬 Envoyer la demande</button>
+</div>
+</section>
+
+<!-- AVIS CLIENTS -->
+<section id="avis" class="container">
+<h2>Avis clients</h2>
+<div class="avis-box">
+  <div class="stars">★★★★★</div>
+  <p>Villa magnifique, très calme et bien équipée. Nous reviendrons !</p>
+  <strong>– Sophie, Mars 2026</strong>
+</div>
+<div class="avis-box">
+  <div class="stars">★★★★★</div>
+  <p>Emplacement idéal pour découvrir la Basse-Terre.</p>
+  <strong>– Marc, Avril 2026</strong>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="container">
+<h2>Contact & réservation</h2>
+<p>📧 villa.caboua@gmail.com<br>📞 06 90 52 06 16</p>
+</section>
+
 <script>
+// INITIALISATION CALENDAR
+const TARIF_NUIT = 180;
 let selectedStart = null;
 let selectedEnd = null;
-const TARIF = 180;
 
-document.addEventListener('DOMContentLoaded', function() {
+// Fonction pour récupérer les événements Google Agenda
+async function loadEvents(){
+  const url = 'https://calendar.google.com/calendar/ical/412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd%40group.calendar.google.com/public/basic.ics';
+  const res = await fetch(url);
+  const text = await res.text();
+
+  // Parse ICS
+  const lines = text.split(/\r?\n/);
+  const events = [];
+  let currentEvent = {};
+  lines.forEach(line=>{
+    if(line.startsWith('BEGIN:VEVENT')) currentEvent = {};
+    if(line.startsWith('DTSTART')) currentEvent.start = line.split(':')[1];
+    if(line.startsWith('DTEND')) currentEvent.end = line.split(':')[1];
+    if(line.startsWith('END:VEVENT')) events.push(currentEvent);
+  });
+  return events.map(e=>{
+    return {
+      start:e.start.substring(0,8),
+      end:e.end.substring(0,8),
+      display:'background',
+      color:'#dcdcdc'
+    };
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async function(){
+
+  const events = await loadEvents();
 
   const calendar = new FullCalendar.Calendar(
     document.getElementById('calendar'),
     {
-      initialView: 'multiMonth',
-      views: {
-        multiMonth: {
-          type: 'multiMonth',
-          duration: { months: 2 }
-        }
-      },
+      initialView:'multiMonth',
+      views:{ multiMonth:{ type:'multiMonth', duration:{months:2} } },
       locale:'fr',
       selectable:true,
+      events:events,
       select:function(info){
-
         selectedStart = info.startStr;
         selectedEnd = info.endStr;
 
@@ -55,36 +313,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const end = new Date(selectedEnd);
         const nights = Math.ceil((end-start)/(1000*60*60*24));
 
-        if(nights < 5){
-          alert("Minimum 5 nuits");
+        if(nights<5){
+          alert("Séjour minimum : 5 nuits");
+          calendar.unselect();
           return;
         }
 
-        const total = nights * TARIF;
-
-        document.getElementById("total").innerHTML =
-          "Total : " + total + " € (" + nights + " nuits)";
-
-        document.getElementById("payer").style.display="inline-block";
+        const total = nights * TARIF_NUIT;
+        document.getElementById("total").innerHTML = "Total estimé : <strong>"+total+" €</strong> ("+nights+" nuits)";
+        document.getElementById("reserveBtn").style.display="inline-block";
       }
-    });
-
+    }
+  );
   calendar.render();
 });
 
-document.getElementById("payer").addEventListener("click", async function(){
+// BOUTON WHATSAPP + EMAIL
+document.getElementById('reserveBtn').addEventListener('click',function(){
+  const start = selectedStart;
+  const end = selectedEnd;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const nights = Math.ceil((endDate-startDate)/(1000*60*60*24));
+  const total = nights * TARIF_NUIT;
 
-  const response = await fetch("/create-checkout-session",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      startDate:selectedStart,
-      endDate:selectedEnd
-    })
-  });
+  const message = "Bonjour, je souhaite réserver la Villa CABOUA du "+start+" au "+end+" ("+nights+" nuits). Total estimé : "+total+" €.";
 
-  const data = await response.json();
-  window.location = data.url;
+  // WhatsApp
+  window.open("https://wa.me/590690520616?text="+encodeURIComponent(message),"_blank");
+
+  // EmailJS (optionnel)
+  // Tu peux configurer EmailJS ici pour envoyer automatiquement un email
 });
 </script>
 
