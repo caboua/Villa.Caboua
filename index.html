@@ -3,147 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA – Réservation</title>
+<title>Villa CABOUA</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:#f5f5f5;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
   color:#222;
 }
 
-/* HEADER */
 header{
-  background:url('BUDDHA.jpg') center/cover no-repeat;
-  padding:100px 20px;
-  text-align:center;
+  background:#222;
   color:white;
-}
-header h1{
-  font-size:3rem;
-  margin:0;
+  text-align:center;
+  padding:60px 20px;
 }
 
-/* MAIN LAYOUT */
 .container{
   max-width:1200px;
   margin:40px auto;
-  display:grid;
-  grid-template-columns: 2fr 1fr;
+  display:flex;
   gap:40px;
   padding:0 20px;
 }
 
-/* GALLERY */
+/* COLONNE GAUCHE */
+.left{
+  flex:2;
+}
+
+/* COLONNE DROITE */
+.right{
+  flex:1;
+}
+
+.section{
+  background:white;
+  padding:25px;
+  margin-bottom:30px;
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-.gallery img{
-  width:100%;
-  border-radius:15px;
-  object-fit:cover;
+  gap:10px;
 }
 
-/* BOOKING CARD */
+.gallery img{
+  width:100%;
+  border-radius:10px;
+}
+
+/* EQUIP */
+.equip-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.equip-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.equip-item i{
+  color:#27ae60;
+}
+
+/* BOOKING */
 .booking{
   background:white;
   padding:25px;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
   position:sticky;
-  top:30px;
-  height:fit-content;
-}
-
-.price-night{
-  font-size:1.4rem;
-  font-weight:bold;
-  margin-bottom:15px;
+  top:20px;
 }
 
 label{
-  font-weight:600;
+  font-weight:bold;
   display:block;
   margin-top:15px;
-  margin-bottom:5px;
-}
-
-/* Guest selector */
-.guest-box{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:8px 0;
 }
 
 .counter{
   display:flex;
   align-items:center;
   gap:10px;
+  margin-top:5px;
 }
 
 .counter button{
-  width:32px;
-  height:32px;
+  width:30px;
+  height:30px;
   border-radius:50%;
   border:1px solid #ccc;
   background:white;
-  font-size:18px;
   cursor:pointer;
 }
 
-.counter span{
-  min-width:20px;
-  text-align:center;
-  font-weight:bold;
-}
-
-/* Button */
 .btn{
-  margin-top:20px;
   width:100%;
-  padding:15px;
-  border:none;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:bold;
+  padding:12px;
   background:#e67e22;
+  border:none;
+  border-radius:10px;
   color:white;
+  font-weight:bold;
+  margin-top:20px;
   cursor:pointer;
-  transition:0.3s;
 }
 
-.btn:hover{
-  background:#d35400;
-}
-
-/* Price details */
 #details{
   margin-top:15px;
-  font-size:0.95rem;
-  line-height:1.5;
-}
-
-.total{
-  font-size:1.2rem;
-  font-weight:bold;
-  margin-top:10px;
+  font-size:14px;
 }
 
 /* MOBILE */
 @media(max-width:900px){
   .container{
-    grid-template-columns:1fr;
-  }
-  .booking{
-    position:relative;
-    top:0;
+    flex-direction:column;
   }
 }
 </style>
@@ -151,127 +139,138 @@ label{
 <body>
 
 <header>
-  <h1>Villa CABOUA</h1>
+<h1>Villa CABOUA</h1>
 </header>
 
 <div class="container">
 
-  <!-- LEFT -->
-  <div>
-    <div class="gallery">
-      <img src="https://via.placeholder.com/600x400">
-      <img src="https://via.placeholder.com/600x400">
-      <img src="https://via.placeholder.com/600x400">
-      <img src="https://via.placeholder.com/600x400">
+  <!-- GAUCHE -->
+  <div class="left">
+
+    <div class="section">
+      <h2>Galerie</h2>
+      <div class="gallery">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+        <img src="https://via.placeholder.com/600x400">
+      </div>
     </div>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>
+        Villa moderne située en Guadeloupe, idéale pour un séjour en famille.
+        Terrasse aménagée, jardin tropical, environnement calme.
+      </p>
+      <ul>
+        <li>Suite parentale avec salle d’eau</li>
+        <li>2 chambres doubles</li>
+        <li>Canapé convertible</li>
+        <li>Terrasse et jardin</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Équipements</h2>
+      <div class="equip-grid">
+        <div class="equip-item"><i class="fa-solid fa-wifi"></i> Wi-Fi</div>
+        <div class="equip-item"><i class="fa-solid fa-snowflake"></i> Climatisation</div>
+        <div class="equip-item"><i class="fa-solid fa-square-parking"></i> Parking</div>
+        <div class="equip-item"><i class="fa-solid fa-utensils"></i> Cuisine équipée</div>
+        <div class="equip-item"><i class="fa-solid fa-tv"></i> Télévision</div>
+        <div class="equip-item"><i class="fa-solid fa-bed"></i> Draps fournis</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Contact</h2>
+      <p>Email : villa.caboua@gmail.com</p>
+      <p>Téléphone : 06 90 52 06 16</p>
+    </div>
+
   </div>
 
-  <!-- RIGHT BOOKING -->
-  <div class="booking">
-    <div class="price-night">180 € / nuit</div>
+  <!-- DROITE -->
+  <div class="right">
+    <div class="booking">
+      <h3>180 € / nuit</h3>
 
-    <label>Dates</label>
-    <input id="calendar" style="padding:10px;width:100%;border-radius:10px;border:1px solid #ccc;">
+      <label>Dates</label>
+      <input id="calendar" style="width:100%;padding:8px;">
 
-    <label>Voyageurs</label>
-
-    <div class="guest-box">
-      <div>Adultes</div>
+      <label>Adultes</label>
       <div class="counter">
-        <button onclick="changeGuest('adult',-1)">−</button>
+        <button onclick="changeAdult(-1)">−</button>
         <span id="adultCount">2</span>
-        <button onclick="changeGuest('adult',1)">+</button>
+        <button onclick="changeAdult(1)">+</button>
       </div>
-    </div>
 
-    <div class="guest-box">
-      <div>Enfants</div>
+      <label>Enfants</label>
       <div class="counter">
-        <button onclick="changeGuest('child',-1)">−</button>
+        <button onclick="changeChild(-1)">−</button>
         <span id="childCount">0</span>
-        <button onclick="changeGuest('child',1)">+</button>
+        <button onclick="changeChild(1)">+</button>
       </div>
+
+      <div id="details"></div>
+
+      <button class="btn" onclick="reserve()">Réserver</button>
     </div>
-
-    <div id="details"></div>
-
-    <button class="btn" onclick="reserve()">Réserver</button>
   </div>
 
 </div>
 
 <script>
-let startDate, endDate;
-let adults = 2;
-let children = 0;
+let startDate,endDate;
+let adults=2, children=0;
 
 flatpickr("#calendar",{
   mode:"range",
   minDate:"today",
   dateFormat:"d/m/Y",
-  onChange:function(dates){
-    if(dates.length===2){
-      startDate = dates[0];
-      endDate = dates[1];
+  onChange:function(d){
+    if(d.length===2){
+      startDate=d[0];
+      endDate=d[1];
       calculate();
     }
   }
 });
 
-function changeGuest(type,change){
-  if(type==="adult"){
-    adults += change;
-    if(adults<1) adults=1;
-    if(adults>6) adults=6;
-    document.getElementById("adultCount").innerText = adults;
-  }
-  if(type==="child"){
-    children += change;
-    if(children<0) children=0;
-    if(children>6) children=6;
-    document.getElementById("childCount").innerText = children;
-  }
+function changeAdult(n){
+  adults+=n;
+  if(adults<1) adults=1;
+  if(adults>6) adults=6;
+  document.getElementById("adultCount").innerText=adults;
   calculate();
 }
 
-function calculate(){
-  if(!startDate || !endDate) return;
+function changeChild(n){
+  children+=n;
+  if(children<0) children=0;
+  if(children>6) children=6;
+  document.getElementById("childCount").innerText=children;
+}
 
-  let nights = Math.ceil((endDate - startDate)/(1000*60*60*24));
-  if(nights < 4){
-    document.getElementById("details").innerHTML = "Minimum 4 nuits";
+function calculate(){
+  if(!startDate||!endDate) return;
+  let nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
+  if(nights<4){
+    document.getElementById("details").innerHTML="Minimum 4 nuits";
     return;
   }
-
-  let pricePerNight = 180;
-  let cleaning = 120;
-  let tax = adults * 1.5;
-
-  let subtotal = nights * pricePerNight;
-  let total = subtotal + cleaning + tax;
-
-  document.getElementById("details").innerHTML = `
-    ${nights} nuits x 180 € = ${subtotal.toFixed(2)} €<br>
-    Taxe séjour (${adults} adulte(s)) = ${tax.toFixed(2)} €<br>
-    Frais ménage = 120 €<br>
-    <div class="total">Total : ${total.toFixed(2)} €</div>
-  `;
+  let subtotal=nights*180;
+  let tax=adults*1.5;
+  let total=subtotal+120+tax;
+  document.getElementById("details").innerHTML=
+  nights+" nuits = "+subtotal+" €<br>"+
+  "Taxe = "+tax+" €<br>"+
+  "Ménage = 120 €<br><strong>Total = "+total+" €</strong>";
 }
 
 function reserve(){
-  if(!startDate || !endDate){
-    alert("Veuillez sélectionner vos dates");
-    return;
-  }
-  let arrivee = startDate.toLocaleDateString('fr-FR');
-  let depart = endDate.toLocaleDateString('fr-FR');
-
-  let msg = `Bonjour, je souhaite réserver la Villa CABOUA.%0A
-Dates: ${arrivee} au ${depart}%0A
-Adultes: ${adults}%0A
-Enfants: ${children}`;
-
-  window.open(`https://wa.me/590690520616?text=${msg}`,'_blank');
+  alert("Simulation réservation");
 }
 </script>
 
