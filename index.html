@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA – Location saisonnière</title>
+<title>Villa CABOUA – Réservation interactive</title>
 
 <!-- FullCalendar -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* Reset & général */
 body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#333;}
 a{text-decoration:none;color:inherit;}
 header{position:relative;height:500px;background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url('BUDDHA.jpg') center/cover no-repeat;color:white;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;}
@@ -48,7 +47,7 @@ button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:6px;fon
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px;}
 .gallery img{width:100%;border-radius:8px;}
 
-#calendar{background:white;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.08);}
+#calendar{background:white;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.08);padding:10px;}
 
 footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:40px;}
 .whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:1000;animation:pulse 2s infinite;}
@@ -179,7 +178,7 @@ document.getElementById('contactHost').addEventListener('click',function(){
   window.location.href="mailto:villa.caboua@gmail.com?subject=Demande de réservation – Villa CABOUA";
 });
 
-// FullCalendar – 2 mois visibles
+// FullCalendar – 2 mois et sélection
 document.addEventListener('DOMContentLoaded', function() {
   const calendarEl=document.getElementById('calendar');
   const today=new Date();
@@ -196,10 +195,29 @@ document.addEventListener('DOMContentLoaded', function() {
     select:function(info){
       document.getElementById('startDate').value=info.startStr;
       document.getElementById('endDate').value=info.endStr;
+      updateTotalPrice();
     }
   });
   calendar.render();
 });
+
+// Prix dynamique
+const pricePerWeek = 1960;
+function updateTotalPrice(){
+  const start=document.getElementById('startDate').value;
+  const end=document.getElementById('endDate').value;
+  if(!start||!end)return;
+  const startD=new Date(start);
+  const endD=new Date(end);
+  const nights=Math.round((endD-startD)/(1000*60*60*24));
+  const total=Math.round(pricePerWeek*(nights/7));
+  document.getElementById('totalPrice').innerText=`Prix total : ${total} € pour ${nights} nuit(s)`;
+}
+
+// Mise à jour automatique lors du changement manuel
+document.getElementById('startDate').addEventListener('change',updateTotalPrice);
+document.getElementById('endDate').addEventListener('change',updateTotalPrice);
+document.getElementById('guests').addEventListener('change',updateTotalPrice);
 </script>
 
 </body>
