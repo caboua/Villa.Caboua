@@ -47,7 +47,12 @@ li{margin-bottom:8px;}
 .card i{font-size:28px;margin-bottom:12px;display:block;color:#27ae60;}
 
 .equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;margin-top:40px;}
-.equip-main{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;font-weight:bold;font-size:1.05rem;border-radius:16px;padding:15px;text-align:center;}
+.equip-main{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;font-weight:bold;font-size:1.05rem;border-radius:16px;padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.3s, box-shadow 0.3s;}
+.equip-main:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,0.15);}
+.equip-grid .card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.1);transition:transform 0.3s, box-shadow 0.3s;text-align:center;font-weight:500;}
+.equip-grid .card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,0.15);}
+.equip-grid .card i{font-size:28px;margin-bottom:10px;color:#27ae60;}
+
 .stars{text-align:center;color:#f1c40f;margin-bottom:10px;font-size:1.2rem;letter-spacing:3px;}
 .badge-luxe{display:inline-block;background:linear-gradient(135deg,#27ae60,#145a32);color:white;padding:8px 18px;border-radius:30px;font-size:0.85rem;margin:10px auto 25px;text-align:center;}
 
@@ -86,6 +91,7 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
   <a href="#contact">Contact</a>
 </nav>
 
+<!-- DESCRIPTION -->
 <section id="description" class="container">
 <h2>🌴 Villa CABOUA</h2>
 <p>Villa récente, photos sur demande. Disponibilités à partir du 01 Mars. Située entre la mer des Caraïbes et la forêt tropicale du Parc National de la Guadeloupe, la Villa CABOUA est idéale pour un séjour détente et calme, au cœur de la Côte Sous-le-Vent.</p>
@@ -113,10 +119,12 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
 </ul>
 </section>
 
+<!-- EQUIPEMENTS -->
 <section id="equipements" class="container">
 <h2>Équipements & Confort</h2>
 <div class="stars">★★★★★</div>
 <div style="text-align:center;"><div class="badge-luxe">VILLA DE STANDING</div></div>
+
 <div class="equip-grid">
 <div class="card equip-main"><i class="fa-solid fa-wifi"></i>Internet haut débit</div>
 <div class="card equip-main"><i class="fa-solid fa-snowflake"></i>Climatisation</div>
@@ -127,7 +135,7 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
 <div class="card"><i class="fa-solid fa-shirt"></i>Lave-linge</div>
 <div class="card"><i class="fa-solid fa-bed"></i>Draps fournis</div>
 <div class="card"><i class="fa-solid fa-mug-hot"></i>Cafetière</div>
-<div class="card"><i class="fa-solid fa-utensils"></i>Ustensiles cuisine</div>
+<div class="card"><i class="fa-solid fa-utensils"></i>Ustensiles de cuisine</div>
 <div class="card"><i class="fa-solid fa-temperature-low"></i>Réfrigérateur</div>
 <div class="card"><i class="fa-solid fa-microchip"></i>Micro-ondes</div>
 <div class="card"><i class="fa-solid fa-fire-burner"></i>Four</div>
@@ -142,6 +150,7 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
 </div>
 </section>
 
+<!-- PHOTOS -->
 <section id="photos" class="container">
 <h2>Galerie photos</h2>
 <div class="gallery">
@@ -152,6 +161,7 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
 </div>
 </section>
 
+<!-- DISPONIBILITES -->
 <section id="disponibilites" class="container">
 <h2>Disponibilités – Mois en cours & suivant</h2>
 <div id="calendar-wrapper">
@@ -160,6 +170,7 @@ footer{text-align:center;padding:20px;background:#2c3e50;color:white;margin-top:
 </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="container">
 <h2>Contact & Réservation</h2>
 <p>📧 Email : villa.caboua@gmail.com<br>📞 Téléphone : 06 90 52 06 16</p>
@@ -187,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
       initialView: 'dayGridMonth',
       initialDate: c.date,
       locale: 'fr',
-      googleCalendarApiKey: 'YOUR_GOOGLE_API_KEY', // <-- Remplacer par ta clé API
+      googleCalendarApiKey: 'YOUR_GOOGLE_API_KEY', // <-- Remplace par ta clé API
       events: { googleCalendarId: calendarId },
       eventColor: '#dcdcdc',
       selectable: false
