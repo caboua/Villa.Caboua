@@ -104,13 +104,12 @@ section{
 }
 
 /* CALENDAR */
-#calendar{
-  max-width:1000px;
-  margin:auto;
+#calendar1, #calendar2{
   background:white;
-  padding:30px;
+  padding:20px;
   border-radius:16px;
   box-shadow:0 10px 40px rgba(0,0,0,0.08);
+  margin-bottom:20px;
 }
 .reserve-btn{
   display:none;
@@ -230,10 +229,13 @@ section{
 </div>
 </section>
 
-<!-- CALENDAR / DISPONIBILITES -->
+<!-- DISPONIBILITES -->
 <section id="disponibilites" class="container">
 <h2>Disponibilités</h2>
-<div id="calendar"></div>
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
+  <div id="calendar1" style="flex:1; min-width:300px;"></div>
+  <div id="calendar2" style="flex:1; min-width:300px;"></div>
+</div>
 <div id="total"></div>
 <div style="text-align:center;">
 <button id="reserveBtn" class="reserve-btn">💬 Envoyer la demande</button>
@@ -262,18 +264,15 @@ section{
 </section>
 
 <script>
-// INITIALISATION CALENDAR
 const TARIF_NUIT = 180;
 let selectedStart = null;
 let selectedEnd = null;
 
-// Fonction pour récupérer les événements Google Agenda
+// Charger événements ICS
 async function loadEvents(){
   const url = 'https://calendar.google.com/calendar/ical/412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd%40group.calendar.google.com/public/basic.ics';
   const res = await fetch(url);
   const text = await res.text();
-
-  // Parse ICS
   const lines = text.split(/\r?\n/);
   const events = [];
   let currentEvent = {};
@@ -294,14 +293,15 @@ async function loadEvents(){
 }
 
 document.addEventListener('DOMContentLoaded', async function(){
-
   const events = await loadEvents();
 
-  const calendar = new FullCalendar.Calendar(
-    document.getElementById('calendar'),
-    {
-      initialView:'multiMonth',
-      views:{ multiMonth:{ type:'multiMonth', duration:{months:2} } },
+  const today = new Date();
+  const nextMonth = new Date(today.getFullYear(), today.getMonth()+1,1);
+
+  [{el:'calendar1', date:today},{el:'calendar2', date:nextMonth}].forEach(c=>{
+    const cal = new FullCalendar.Calendar(document.getElementById(c.el),{
+      initialView:'dayGridMonth',
+      initialDate:c.date,
       locale:'fr',
       selectable:true,
       events:events,
@@ -312,10 +312,9 @@ document.addEventListener('DOMContentLoaded', async function(){
         const start = new Date(selectedStart);
         const end = new Date(selectedEnd);
         const nights = Math.ceil((end-start)/(1000*60*60*24));
-
         if(nights<5){
           alert("Séjour minimum : 5 nuits");
-          calendar.unselect();
+          cal.unselect();
           return;
         }
 
@@ -323,27 +322,20 @@ document.addEventListener('DOMContentLoaded', async function(){
         document.getElementById("total").innerHTML = "Total estimé : <strong>"+total+" €</strong> ("+nights+" nuits)";
         document.getElementById("reserveBtn").style.display="inline-block";
       }
-    }
-  );
-  calendar.render();
+    });
+    cal.render();
+  });
 });
 
-// BOUTON WHATSAPP + EMAIL
 document.getElementById('reserveBtn').addEventListener('click',function(){
   const start = selectedStart;
   const end = selectedEnd;
   const startDate = new Date(start);
   const endDate = new Date(end);
   const nights = Math.ceil((endDate-startDate)/(1000*60*60*24));
-  const total = nights * TARIF_NUIT;
-
+  const total = nights*TARIF_NUIT;
   const message = "Bonjour, je souhaite réserver la Villa CABOUA du "+start+" au "+end+" ("+nights+" nuits). Total estimé : "+total+" €.";
-
-  // WhatsApp
   window.open("https://wa.me/590690520616?text="+encodeURIComponent(message),"_blank");
-
-  // EmailJS (optionnel)
-  // Tu peux configurer EmailJS ici pour envoyer automatiquement un email
 });
 </script>
 
