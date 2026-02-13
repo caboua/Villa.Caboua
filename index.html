@@ -3,227 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villa CABOUA – Location Saisonnière</title>
+<title>Villa CABOUA – Réservation</title>
 
-<!-- FullCalendar + Google Calendar -->
+<!-- FullCalendar -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/google-calendar.global.min.js"></script>
-
-<!-- Flatpickr -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#222;}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#333;}
 header{
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BUDDHA.jpg') center top/cover no-repeat;
-  color:white;text-align:center;padding:120px 20px;
+  height:500px;
+  background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url('BUDDHA.jpg') center/cover no-repeat;
+  color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
 }
 header h1{
-  font-size:3rem;
-  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-  -webkit-background-clip: text;-webkit-text-fill-color: transparent;
-  animation: rainbowMove 5s linear infinite;
+  font-size:3rem; margin:0;
+  background:linear-gradient(90deg,red,orange,yellow,green,cyan,blue,violet);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation:rainbowMove 5s linear infinite;
 }
 @keyframes rainbowMove{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
-header p{font-size:1.2rem;margin-top:10px;}
-
+header p{font-size:1.2rem;}
 nav{background:#2c3e50;padding:10px;text-align:center;}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold;}
+nav a{color:white;margin:0 15px;font-weight:bold;text-decoration:none;}
 nav a:hover{text-decoration:underline;}
 
-.container{max-width:1200px;margin:40px auto;display:flex;gap:40px;padding:0 20px;}
-.left{flex:2;} .right{flex:1;}
-.section{background:white;padding:25px;margin-bottom:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.05);}
+main{max-width:1200px;margin:auto;padding:20px;}
+.section-title{color:#2c3e50;margin-bottom:20px;font-size:2rem;text-align:center;}
 
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-.gallery img{width:100%;border-radius:10px;}
+/* Layout */
+.flex-container{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:40px;}
+.flex-left{flex:2;min-width:300px;}
+.flex-right{flex:1;min-width:280px;background:white;padding:20px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.08);position:sticky;top:20px;align-self:flex-start;}
+label{display:block;margin:10px 0 5px;font-weight:bold;}
+input, select{width:100%;padding:10px;margin-bottom:10px;border-radius:6px;border:1px solid #ccc;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;}
+#bookNow{background:#e67e22;color:white;}
+#contactHost{background:#2c3e50;color:white;}
 
-.equip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px;}
-.equip-item{display:flex;align-items:center;gap:8px;}
-.equip-item i{color:#27ae60;}
+/* Price summary */
+#priceSummary{margin-top:15px;font-size:0.95rem;background:#f9f9f9;padding:12px;border-radius:8px;}
+#priceSummary div{display:flex;justify-content:space-between;margin-bottom:5px;font-weight:500;}
+#priceSummary div.total{font-weight:bold;font-size:1.1rem;}
 
-.booking{background:white;padding:25px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);position:sticky;top:20px;}
-label{font-weight:bold;display:block;margin-top:15px;}
-select,input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px solid #ccc;}
-.btn{width:100%;padding:12px;background:#e67e22;border:none;border-radius:10px;color:white;font-weight:bold;margin-top:20px;cursor:pointer;}
-#billing{margin-top:15px;font-size:14px;}
-.billing-line{display:flex;justify-content:space-between;margin-top:5px;}
-.billing-line.total{font-weight:bold;font-size:16px;}
-#calendar-wrapper{margin-top:20px;}
+/* Equipments */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px;margin-top:20px;}
+.equip-card{background:white;padding:12px;border-radius:12px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.08);font-size:0.95rem;}
+.equip-card i{font-size:24px;color:#27ae60;margin-bottom:8px;display:block;}
 
-.whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:1000;animation:pulse 2s infinite;}
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+.gallery img{width:100%;border-radius:8px;}
+
+/* Calendar */
+#calendar{background:white;padding:10px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.08);margin-bottom:40px;}
+
+/* WhatsApp floating button */
+.whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:1000;animation:pulse 2s infinite;}
 .whatsapp-float svg{width:34px;height:34px;fill:white;}
 @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
-@media(max-width:900px){.container{flex-direction:column;}}
+@media(max-width:768px){.whatsapp-float{display:flex;}}
+@media(max-width:900px){.flex-container{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>VILLA CABOUA</h1>
-  <p>Calme et sérénité en Guadeloupe</p>
+<h1>VILLA CABOUA</h1>
+<p>Calme et sérénité en Guadeloupe</p>
 </header>
 
 <nav>
-  <a href="#description">Description</a>
-  <a href="#equipements">Équipements</a>
-  <a href="#photos">Photos</a>
-  <a href="#booking">Réservation</a>
-  <a href="#contact">Contact</a>
+<a href="#description">Description</a>
+<a href="#equipements">Équipements</a>
+<a href="#photos">Photos</a>
+<a href="#disponibilites">Disponibilités</a>
+<a href="#reservation">Réservation</a>
+<a href="#contact">Contact</a>
 </nav>
 
-<div class="container">
+<main>
 
-  <!-- COLONNE GAUCHE -->
-  <div class="left">
-    <div class="section" id="photos">
-      <h2>Galerie</h2>
-      <div class="gallery">
-        <img src="https://via.placeholder.com/600x400" alt="Salon">
-        <img src="https://via.placeholder.com/600x400" alt="Cuisine">
-        <img src="https://via.placeholder.com/600x400" alt="Chambre">
-        <img src="https://via.placeholder.com/600x400" alt="Jardin">
-      </div>
-    </div>
+<!-- Description -->
+<section id="description">
+<h2 class="section-title">🌴 Villa CABOUA – Calme et sérénité en Guadeloupe 🌴</h2>
+<p>Villa récente entre la mer des Caraïbes et la forêt tropicale, idéale pour un séjour de détente.</p>
+<ul>
+<li>Terrasse aménagée avec coin repas et salon détente</li>
+<li>Cuisine équipée : plaque induction 4 feux, four, micro-ondes, cafetière, bouilloire, grille-pain, réfrigérateur/congélateur, lave-linge</li>
+<li>Suite parentale climatisée avec lit 160×200, salle d’eau et accès terrasse</li>
+<li>Deux chambres climatisées avec lits 160×200</li>
+<li>Salle d’eau indépendante, WC séparé, canapé convertible</li>
+<li>Minimum 4 nuits, remise 10% dès 7 nuits</li>
+</ul>
+</section>
 
-    <div class="section" id="description">
-      <h2>Description</h2>
-      <p>
-        Villa moderne située en Guadeloupe, idéale pour un séjour en famille.
-        Terrasse aménagée, jardin tropical, environnement calme.
-      </p>
-      <ul>
-        <li>Suite parentale avec salle d’eau</li>
-        <li>2 chambres doubles</li>
-        <li>Canapé convertible</li>
-        <li>Terrasse et jardin</li>
-      </ul>
-    </div>
+<!-- Equipements -->
+<section id="equipements">
+<h2 class="section-title">Équipements</h2>
+<div class="equip-grid">
+<div class="equip-card"><i class="fa-solid fa-wifi"></i>Internet</div>
+<div class="equip-card"><i class="fa-solid fa-snowflake"></i>Climatisation</div>
+<div class="equip-card"><i class="fa-solid fa-square-parking"></i>Parking</div>
+<div class="equip-card"><i class="fa-solid fa-pump-soap"></i>Produits d’entretien</div>
+<div class="equip-card"><i class="fa-solid fa-couch"></i>Canapé</div>
+<div class="equip-card"><i class="fa-solid fa-broom"></i>Aspirateur</div>
+<div class="equip-card"><i class="fa-solid fa-shirt"></i>Lave-linge</div>
+<div class="equip-card"><i class="fa-solid fa-bed"></i>Draps fournis</div>
+<div class="equip-card"><i class="fa-solid fa-mug-hot"></i>Cafetière</div>
+<div class="equip-card"><i class="fa-solid fa-utensils"></i>Ustensiles</div>
+<div class="equip-card"><i class="fa-solid fa-temperature-low"></i>Réfrigérateur</div>
+<div class="equip-card"><i class="fa-solid fa-microchip"></i>Micro-ondes</div>
+<div class="equip-card"><i class="fa-solid fa-fire-burner"></i>Four</div>
+<div class="equip-card"><i class="fa-solid fa-chair"></i>Table</div>
+<div class="equip-card"><i class="fa-solid fa-bread-slice"></i>Grille-pain</div>
+<div class="equip-card"><i class="fa-solid fa-tv"></i>TV</div>
+<div class="equip-card"><i class="fa-solid fa-umbrella-beach"></i>Terrasse</div>
+<div class="equip-card"><i class="fa-solid fa-seedling"></i>Jardin</div>
+</div>
+</section>
 
-    <div class="section" id="equipements">
-      <h2>Équipements</h2>
-      <div class="equip-grid">
-        <div class="equip-item"><i class="fa-solid fa-wifi"></i> Wi-Fi</div>
-        <div class="equip-item"><i class="fa-solid fa-snowflake"></i> Climatisation</div>
-        <div class="equip-item"><i class="fa-solid fa-square-parking"></i> Parking</div>
-        <div class="equip-item"><i class="fa-solid fa-utensils"></i> Cuisine équipée</div>
-        <div class="equip-item"><i class="fa-solid fa-tv"></i> Télévision</div>
-        <div class="equip-item"><i class="fa-solid fa-bed"></i> Draps fournis</div>
-        <div class="equip-item"><i class="fa-solid fa-umbrella-beach"></i> Terrasse</div>
-        <div class="equip-item"><i class="fa-solid fa-seedling"></i> Jardin clôturé</div>
-      </div>
-    </div>
+<!-- Photos -->
+<section id="photos">
+<h2 class="section-title">Galerie photos</h2>
+<div class="gallery">
+<img src="https://via.placeholder.com/400x300" alt="Salon">
+<img src="https://via.placeholder.com/400x300" alt="Cuisine">
+<img src="https://via.placeholder.com/400x300" alt="Chambre">
+<img src="https://via.placeholder.com/400x300" alt="Jardin">
+</div>
+</section>
 
-    <div class="section" id="contact">
-      <h2>Contact</h2>
-      <p>Email : villa.caboua@gmail.com</p>
-      <p>Téléphone : 06 90 52 06 16</p>
-    </div>
-  </div>
+<!-- Disponibilités -->
+<section id="disponibilites">
+<h2 class="section-title">Disponibilités – Mois en cours & suivant</h2>
+<div id="calendar"></div>
+</section>
 
-  <!-- COLONNE DROITE -->
-  <div class="right" id="booking">
-    <div class="booking">
-      <h3>180 € / nuit</h3>
+<!-- Réservation -->
+<section id="reservation">
+<div class="flex-container">
+<div class="flex-right">
+<h2 class="section-title">Réservez votre séjour</h2>
+<label>Dates</label>
+<input type="text" id="dateRange" readonly placeholder="Sélectionnez les dates">
+<label>Voyageurs</label>
+<select id="guests">
+<option value="1">1 Voyageur</option>
+<option value="2" selected>2 Voyageurs</option>
+<option value="3">3 Voyageurs</option>
+<option value="4">4 Voyageurs</option>
+<option value="5">5 Voyageurs</option>
+<option value="6">6 Voyageurs</option>
+</select>
 
-      <label>Dates</label>
-      <div id="calendar-wrapper"></div>
-
-      <label>Adultes</label>
-      <select id="adultSelect"></select>
-
-      <label>Enfants</label>
-      <select id="childSelect"></select>
-
-      <div id="billing"></div>
-
-      <button class="btn" onclick="reserve()">Réserver</button>
-    </div>
-  </div>
-
+<div id="priceSummary">
+<div><span>Prix de la location</span><span id="priceRental">0 €</span></div>
+<div><span>Taxe de séjour</span><span id="tax">0 €</span></div>
+<div><span>Frais de ménage</span><span id="cleaning">120 €</span></div>
+<div class="total"><span>Prix total</span><span id="total">0 €</span></div>
 </div>
 
-<!-- WhatsApp flottant -->
-<a href="https://wa.me/590690520616?text=Bonjour,%20je%20souhaite%20réserver%20la%20Villa%20CABOUA" class="whatsapp-float" target="_blank">
+<button id="bookNow">Réserver maintenant</button>
+<button id="contactHost">Contactez l’hôte</button>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 – Villa CABOUA – Location saisonnière</p>
+</footer>
+
+<a href="#" class="whatsapp-float" onclick="openWhatsApp(); return false;">
 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M19.11 17.93c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.44-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.63 1.11 2.82.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.27.18 1.75.11.53-.08 1.61-.66 1.84-1.29.23-.63.23-1.18.16-1.29-.07-.11-.25-.18-.52-.32zM16.02 3C9.4 3 4 8.4 4 15.02c0 2.64.86 5.09 2.32 7.08L4 29l7.1-2.28a11.96 11.96 0 004.92 1.04h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3z"/></svg>
 </a>
 
 <script>
-// Paramètres réservation
-const MAX_ADULTS=6, MAX_TOTAL=8, MIN_NIGHTS=4;
-let adults=2, children=0;
-let startDate,endDate;
+const pricePerNight = 180;
+const taxPerPerson = 1.5;
+const cleaningFee = 120;
+const minNights = 4;
 
-const adultSelect=document.getElementById("adultSelect");
-const childSelect=document.getElementById("childSelect");
-for(let i=1;i<=MAX_ADULTS;i++) adultSelect.innerHTML+=`<option value="${i}">${i}</option>`;
-for(let i=0;i<=MAX_TOTAL;i++) childSelect.innerHTML+=`<option value="${i}">${i}</option>`;
-adultSelect.value=adults; childSelect.value=children;
-
-adultSelect.addEventListener('change',updateGuests);
-childSelect.addEventListener('change',updateGuests);
-function updateGuests(){
-  let a=parseInt(adultSelect.value), c=parseInt(childSelect.value);
-  if(a+c>MAX_TOTAL){ alert("Maximum 8 personnes."); c=MAX_TOTAL-a; childSelect.value=c; }
-  adults=a; children=c; calculate();
-}
-
-// FullCalendar pour afficher les 2 mois et bloquer les dates réservées
-document.addEventListener('DOMContentLoaded', function() {
-  const calendarId="412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd@group.calendar.google.com";
-  const calendarWrapper=document.getElementById("calendar-wrapper");
-
-  // Créer deux div pour les 2 mois
-  const cal1=document.createElement("div"); cal1.style.width="100%"; cal1.style.marginBottom="20px";
-  const cal2=document.createElement("div"); cal2.style.width="100%";
-  calendarWrapper.appendChild(cal1); calendarWrapper.appendChild(cal2);
-
-  const today=new Date();
-  const nextMonth=new Date(today.getFullYear(), today.getMonth()+1, 1);
-
-  [ {el:cal1, date:today}, {el:cal2, date:nextMonth} ].forEach(c=>{
-    const calendar=new FullCalendar.Calendar(c.el,{
-      initialView:'dayGridMonth',
-      initialDate:c.date,
-      locale:'fr',
-      googleCalendarApiKey:'AIzaSyAnLIfv6qKVJmXrVLtHPy1KAriZaO7pE2Y', // Ta clé API
-      events:{ googleCalendarId: calendarId },
-      selectable:true,
-      select:function(info){
-        const nights=Math.ceil((info.end-info.start)/(1000*60*60*24));
-        if(nights<MIN_NIGHTS){ alert("Séjour minimum 4 nuits."); return; }
-        startDate=info.start; endDate=new Date(info.end-1); calculate();
-      },
-      eventColor:'#dcdcdc'
-    });
-    calendar.render();
+document.addEventListener('DOMContentLoaded', function(){
+  const calendarEl = document.getElementById('calendar');
+  const today = new Date();
+  const calendar = new FullCalendar.Calendar(calendarEl,{
+    initialView:'dayGridMonth',
+    locale:'fr',
+    googleCalendarApiKey:'AIzaSyAnLIfv6qKVJmXrVLtHPy1KAriZaO7pE2Y',
+    events:{googleCalendarId:'412702464d4437ebd96ca3dfe4e46487e858bd35c61aaa93ca04fb2a1ea63ccd@group.calendar.google.com'},
+    headerToolbar:{left:'prev,next today',center:'title',right:''},
+    selectable:true,
+    eventColor:'#dcdcdc',
+    visibleRange:{start:today,end:new Date(today.getFullYear(),today.getMonth()+2,0)},
+    select:function(info){
+      const startStr = info.startStr;
+      const endStr = new Date(info.end);
+      const diffDays = Math.round((endStr - info.start)/(1000*60*60*24));
+      if(diffDays < minNights){alert(`Séjour minimum ${minNights} nuits`); return;}
+      document.getElementById('dateRange').value = `${formatDate(startStr)} → ${formatDate(endStr)}`;
+      updatePrice(diffDays);
+    }
   });
+  calendar.render();
 });
 
-function calculate(){
-  if(!startDate||!endDate) return;
-  const nights=Math.ceil((endDate-startDate)/(1000*60*60*24));
-  const subtotal=nights*180;
-  const tax=adults*1.5;
-  const total=subtotal+120+tax;
-  document.getElementById("billing").innerHTML=
-    `<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
-     <div class="billing-line"><span>Taxe de séjour</span><span>${tax.toFixed(2)} €</span></div>
-     <div class="billing-line"><span>Frais de ménage</span><span>120 €</span></div>
-     <hr>
-     <div class="billing-line total"><span>Total</span><span>${total.toFixed(2)} €</span></div>`;
+function formatDate(dateStr){
+  const d=new Date(dateStr);
+  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'});
 }
 
-function reserve(){
-  if(!startDate||!endDate){ alert("Veuillez sélectionner vos dates."); return; }
-  alert("Réservation simulée ! Total : "+document.querySelector(".billing-line.total span").innerText);
+function updatePrice(nights){
+  const guests = parseInt(document.getElementById('guests').value);
+  const priceRental = nights*pricePerNight;
+  const tax = nights*guests*taxPerPerson;
+  const total = priceRental + tax + cleaningFee;
+  document.getElementById('priceRental').innerText = priceRental + ' €';
+  document.getElementById('tax').innerText = tax + ' €';
+  document.getElementById('total').innerText = total + ' €';
 }
+
+function openWhatsApp(){
+  const date = document.getElementById('dateRange').value;
+  const guests = document.getElementById('guests').value;
+  if(!date){alert("Veuillez sélectionner les dates"); return;}
+  const message = `Bonjour, je souhaite réserver la Villa CABOUA.%0ADates : ${date}%0ANombre de voyageurs : ${guests}`;
+  window.open(`https://wa.me/590690520616?text=${message}`,'_blank');
+}
+
+document.getElementById('contactHost').addEventListener('click',function(){
+  window.location.href="mailto:villa.caboua@gmail.com?subject=Demande de réservation – Villa CABOUA";
+});
 </script>
-
 </body>
 </html>
