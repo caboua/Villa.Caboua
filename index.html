@@ -15,6 +15,88 @@
 
 <!-- Stripe -->
 <script src="https://js.stripe.com/v3/"></script>
+<label>Dates</label>
+<input type="date" id="startDate">
+<input type="date" id="endDate">
+
+<label>Voyageurs</label>
+<select id="guests">
+  <option value="1">1 Voyageur</option>
+  <option value="2" selected>2 Voyageurs</option>
+  <option value="3">3 Voyageurs</option>
+</select>
+
+<button id="bookNow">Réserver maintenant</button>
+<p id="totalPrice"></p>
+
+<script>
+async function updateTotal() {
+  const start = document.getElementById("startDate").value;
+  const end = document.getElementById("endDate").value;
+  const guests = parseInt(document.getElementById("guests").value);
+  if (!start || !end) return;
+
+  const nights = (new Date(end) - new Date(start)) / (1000*60*60*24);
+  const priceRental = nights * 180;
+  const tax = nights * guests * 1.5;
+  const total = priceRental + tax + 120;
+
+  document.getElementById("totalPrice").innerText = `Prix total: ${total} €`;
+  return { nights, guests };
+}
+
+document.getElementById("startDate").addEventListener("change", updateTotal);
+document.getElementById("endDate").addEventListener("change", updateTotal);
+document.getElementById("guests").addEventListener("change", updateTotal);
+
+
+document.getElementById("bookNow").addEventListener("click", async () => {
+
+  try {
+
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+    const guests = parseInt(document.getElementById("guests").value);
+
+    const nights = (new Date(end) - new Date(start)) / (1000*60*60*24);
+
+    if (!nights || nights < 4) {
+      alert("Séjour minimum 4 nuits");
+      return;
+    }
+
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nights, guests })
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Erreur API:", text);
+      alert("Erreur Stripe backend");
+      return;
+    }
+
+    const data = await response.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Session Stripe non créée");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Erreur JS");
+  }
+
+});
+
+
+
+</script>
+
 
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#333;}
