@@ -15,6 +15,35 @@
 
 <!-- Stripe -->
 <script src="https://js.stripe.com/v3/"></script>
+const stripe = Stripe("pk_test_XXXXXXX"); // ta clé publique
+
+document.getElementById("bookNow").addEventListener("click", async () => {
+
+  const start = document.getElementById("startDate").value;
+  const end = document.getElementById("endDate").value;
+  const guests = document.getElementById("guests").value;
+
+  if (!start || !end) {
+    alert("Sélectionnez les dates");
+    return;
+  }
+
+  const response = await fetch("/api/create-checkout-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ start, end, guests })
+  });
+
+  const data = await response.json();
+
+  if (data.id) {
+    stripe.redirectToCheckout({ sessionId: data.id });
+  } else {
+    alert(data.error || "Erreur paiement");
+  }
+
+});
+
 
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#333;}
